@@ -1,69 +1,31 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { MainView } from './views/MainView';
+import { Header } from './Header';
+import { ErrorBoundary } from './ErrorBoundary';
+import './reset.css';
+import './index.css';
 
-let componentRendersNumber = 0;
-let pureComponentRendersNumber = 0;
-
-const HelloElement = React.createElement('h1', null, 'Hello World!');
-
-class ImpureComponent extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      counter: 0,
-    };
-
-    setInterval(() => {
-      this.setState({
-        counter: 0,
-      });
-    }, 1000);
-  }
-
-  render() {
-    componentRendersNumber++;
-    return (
-      <div style={{ border: '2px solid red', marginBottom: 5 }}>
-        <h3>React.Component component</h3>
-        <div>Counter Value: {this.state.counter} </div>
-        <span>Component rendered {componentRendersNumber} times</span>
-      </div>
-    );
-  }
-}
-
-class MyPureComponent extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      counter: 0,
-    };
-
-    setInterval(() => {
-      this.setState({
-        counter: 0,
-      });
-    }, 1000);
-  }
-
-  render() {
-    pureComponentRendersNumber++;
-    return (
-      <div style={{ border: '2px solid green' }}>
-        <h3>React.Pure component</h3>
-        <div>Counter Value: {this.state.counter} </div>
-        <span>Component rendered {pureComponentRendersNumber} times</span>
-      </div>
-    );
-  }
-}
+const useStyles = makeStyles(() => ({
+  main: { paddingTop: 20 },
+  background: {
+    backgroundColor: '#232323',
+    width: '100%',
+  },
+}));
 
 const App = () => {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      {HelloElement}
-      <ImpureComponent />
-      <MyPureComponent />
-    </div>
+    <ErrorBoundary>
+      <div className={classes.background}>
+        <Header />
+        <div className={classes.main}>
+          <MainView />
+        </div>
+      </div>
+    </ErrorBoundary>
   );
 };
 
