@@ -1,12 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { throttle } from 'lodash';
 import { NetflixLogo } from './NetflixLogo';
 import { Search } from './Search';
+import { ModalWindow } from './ModalWindow';
+import { ManagedMovie } from './ManagedMovie';
 
 const CHANGE_HEADER_ON_SCROLLED_PIXELS = 400;
 const BACKGROUND_IMAGE_URL = 'background.jpg';
@@ -29,10 +28,10 @@ const useStyles = makeStyles(() => ({
     boxShadow: 'none',
   },
   transparentHeader: {
-    background: 'transparent !important',
+    background: 'transparent',
   },
   filledHeader: {
-    background: '#232323 !important',
+    background: '#232323',
     border: '0',
     boxShadow: '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
   },
@@ -59,6 +58,15 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
 }));
+
+const movieFields = [
+  { value: 'some', name: 'TITLE' },
+  { value: 'some release date', name: 'RELEASE DATE' },
+  { value: 'movie url', name: 'MOVIE URL' },
+  { value: 'some genre', name: 'GENRE' },
+  { value: 'some overview', name: 'OVERVIEW' },
+  { value: 'some runtime', name: 'RUNTIME' },
+];
 
 const Header = () => {
   const classes = useStyles();
@@ -88,7 +96,13 @@ const Header = () => {
           <Typography variant="h6" className={classes.title}>
             <NetflixLogo className={classes.logo} />
           </Typography>
-          <Button className={classes.addMovieButton}>+Add movie</Button>
+          <ModalWindow
+            title="Add Movie"
+            actionText="+Add Movie"
+            buttonClassName={classes.addMovieButton}
+          >
+            <ManagedMovie defaultMovieFields={movieFields} />
+          </ModalWindow>
         </Toolbar>
       </AppBar>
       <div className={classes.mainImage}>

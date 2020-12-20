@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Input } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Input } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,6 +20,9 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     padding: 10,
     border: 'none',
+    '&::after': {
+      borderBottomColor: '#f65261',
+    },
   },
 }));
 
@@ -31,7 +33,7 @@ const Search = () => {
       <Typography variant="h4" className={classes.title}>
         FIND YOUR MOVIE
       </Typography>
-      <Input color="secondary" className={classes.searchElement} />
+      <Input className={classes.searchElement} />
     </div>
   );
 };

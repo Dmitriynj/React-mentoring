@@ -1,10 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
@@ -19,6 +16,21 @@ const useStyles = makeStyles({
   media: {
     height: 340,
   },
+  moreContainer: {
+    position: 'absolute',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  more: {
+    padding: 2,
+    margin: 2,
+    height: 24,
+    position: 'relative',
+    color: 'white',
+    backgroundColor: 'black',
+    borderRadius: '50%',
+  },
 });
 
 const FilmCard = ({ title, description }) => {
@@ -27,6 +39,11 @@ const FilmCard = ({ title, description }) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
+        <div className={classes.moreContainer}>
+          <span className={classes.more}>
+            <MoreVertIcon />
+          </span>
+        </div>
         <CardMedia className={classes.media} image="sample.jpg" title="Contemplative Reptile" />
         <CardContent>
           <Typography>{title}</Typography>
