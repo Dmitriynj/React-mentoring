@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input, InputLabel, Button } from '@material-ui/core';
 import { uniqueId, map } from 'lodash';
+import { MODAL_BUTTONS_STYLES } from '../constants';
 
 const useStyles = makeStyles(() => ({
   field: {
@@ -27,19 +28,7 @@ const useStyles = makeStyles(() => ({
   footer: {
     marginLeft: 'auto',
   },
-  confirmButton: {
-    marginLeft: 10,
-    background: '#f65261',
-    color: 'white',
-    borderRadius: 4,
-    border: '2px solid #f65261',
-    '&:hover': { background: '#f65261' },
-  },
-  resetButton: {
-    borderRadius: 4,
-    border: '2px solid #f65261',
-    color: '#f65261',
-  },
+  ...MODAL_BUTTONS_STYLES,
 }));
 
 const ManagedMovie = ({ defaultMovieFields }) => {

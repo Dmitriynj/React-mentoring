@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ModalWindow = ({ actionText, buttonClassName, children, title }) => {
+const ModalButton = ({ actionText, buttonClassName, children, title, onClose }) => {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState({
@@ -41,6 +41,7 @@ const ModalWindow = ({ actionText, buttonClassName, children, title }) => {
 
   const handleClose = () => {
     setOpen(false);
+    onClose();
   };
 
   return (
@@ -68,11 +69,16 @@ const ModalWindow = ({ actionText, buttonClassName, children, title }) => {
     </div>
   );
 };
-ModalWindow.propTypes = {
+ModalButton.propTypes = {
   title: PropTypes.string.isRequired,
   actionText: PropTypes.string.isRequired,
-  buttonClassName: PropTypes.string.isRequired,
+  buttonClassName: PropTypes.string,
   children: PropTypes.element.isRequired,
+  onClose: PropTypes.func,
+};
+ModalButton.defaultProps = {
+  onClose: () => {},
+  buttonClassName: undefined,
 };
 
-export { ModalWindow };
+export { ModalButton };

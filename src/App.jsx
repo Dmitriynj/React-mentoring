@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { MainView } from './views/MainView';
-import { Header } from './Header';
-import { ErrorBoundary } from './ErrorBoundary';
+import { Header } from './components/header/Header';
 import './reset.css';
 import './index.css';
 
@@ -18,14 +17,12 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <ErrorBoundary>
-      <div className={classes.background}>
-        <Header />
-        <div className={classes.main}>
-          <MainView />
-        </div>
+    <div className={classes.background}>
+      <Header />
+      <div className={classes.main}>
+        <MainView />
       </div>
-    </ErrorBoundary>
+    </div>
   );
 };
 

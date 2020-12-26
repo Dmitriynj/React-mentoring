@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import { throttle } from 'lodash';
-import { NetflixLogo } from './NetflixLogo';
-import { Search } from './Search';
-import { ModalWindow } from './ModalWindow';
-import { ManagedMovie } from './ManagedMovie';
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import { throttle, isEmpty } from 'lodash';
+import { NetflixLogo } from '../NetflixLogo';
+import { ModalButton } from '../ModalButton';
+import { ManagedMovie } from '../ManagedMovie';
+import { Content } from './Content';
+import { useAppState } from '../../hooks/useAppState';
+import { movieFields } from '../../constants';
 
-const CHANGE_HEADER_ON_SCROLLED_PIXELS = 400;
+const CHANGE_HEADER_ON_SCROLLED_PIXELS = 280;
 const BACKGROUND_IMAGE_URL = 'background.jpg';
 
 const useStyles = makeStyles(() => ({
@@ -52,28 +55,26 @@ const useStyles = makeStyles(() => ({
     backgroundPosition: 'center center',
     backgroundImage: `url(${BACKGROUND_IMAGE_URL} )`,
   },
-  shadowed: {
-    backgroundImage: `-webkit-gradient(linear,left bottom,left top,color-stop(50%,rgba(0,0,0,0)),to(rgba(0,0,0,.7))),radial-gradient(50% 100%,rgba(0,0,0,0) 50%,rgba(0,0,0,.7) 100%)`,
-    width: '100%',
-    height: '100%',
-  },
 }));
-
-const movieFields = [
-  { value: 'some', name: 'TITLE' },
-  { value: 'some release date', name: 'RELEASE DATE' },
-  { value: 'movie url', name: 'MOVIE URL' },
-  { value: 'some genre', name: 'GENRE' },
-  { value: 'some overview', name: 'OVERVIEW' },
-  { value: 'some runtime', name: 'RUNTIME' },
-];
 
 const Header = () => {
   const classes = useStyles();
+  const { currentMovie, setCurrentMovie } = useAppState();
+  const [showSearchIcon, setShowSearchIcon] = useState();
 
   React.useEffect(() => {
+    if (isEmpty(currentMovie)) {
+      setShowSearchIcon(false);
+    } else {
+      setShowSearchIcon(true);
+    }
+  }, [currentMovie]);
+
+  React.useEffect(() => {
+    const scrolledRoot = document.getElementById('root');
+
     const headerColorChange = throttle(() => {
-      const windowsScrollTop = window.pageYOffset;
+      const windowsScrollTop = scrolledRoot.scrollTop;
       if (windowsScrollTop > CHANGE_HEADER_ON_SCROLLED_PIXELS) {
         document.body.getElementsByTagName('header')[0].classList.remove(classes.transparentHeader);
         document.body.getElementsByTagName('header')[0].classList.add(classes.filledHeader);
@@ -83,11 +84,16 @@ const Header = () => {
       }
     }, 150);
 
-    window.addEventListener('scroll', headerColorChange);
+    scrolledRoot.addEventListener('scroll', headerColorChange);
     return function cleanup() {
-      window.removeEventListener('scroll', headerColorChange);
+      scrolledRoot.removeEventListener('scroll', headerColorChange);
     };
   });
+
+  const switchToInput = () => {
+    setShowSearchIcon(false);
+    setCurrentMovie({});
+  };
 
   return (
     <>
@@ -96,19 +102,23 @@ const Header = () => {
           <Typography variant="h6" className={classes.title}>
             <NetflixLogo className={classes.logo} />
           </Typography>
-          <ModalWindow
-            title="Add Movie"
-            actionText="+Add Movie"
-            buttonClassName={classes.addMovieButton}
-          >
-            <ManagedMovie defaultMovieFields={movieFields} />
-          </ModalWindow>
+          {showSearchIcon ? (
+            <IconButton color="inherit" onClick={switchToInput}>
+              <SearchIcon />
+            </IconButton>
+          ) : (
+            <ModalButton
+              title="Add Movie"
+              actionText="+Add Movie"
+              buttonClassName={classes.addMovieButton}
+            >
+              <ManagedMovie defaultMovieFields={movieFields} />
+            </ModalButton>
+          )}
         </Toolbar>
       </AppBar>
       <div className={classes.mainImage}>
-        <div className={classes.shadowed}>
-          <Search />
-        </div>
+        <Content />
       </div>
     </>
   );
