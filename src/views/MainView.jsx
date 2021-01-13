@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Typography } from '@material-ui/core';
 import { FilmsList } from '../components/FilmsList';
+import { Sorting } from '../components/Sorting';
 
 const useStyles = makeStyles(() => ({
   genreButton: {
@@ -28,10 +29,8 @@ const MainView = () => {
           <Button className={classes.genreButton}>HORROR</Button>
           <Button className={classes.genreButton}>CRIME</Button>
         </div>
-        <div>
-          <Button className={classes.genreButton}>SORT BY</Button>
-          <Button className={classes.genreButton}>RELEASE DATE</Button>
-        </div>
+
+        <Sorting />
       </div>
       <FilmsList />
     </>

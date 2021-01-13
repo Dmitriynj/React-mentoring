@@ -45,15 +45,7 @@ const MovieDetails = ({ title, imageUrl, description }) => {
               <Typography variant="body2" gutterBottom>
                 {description}
               </Typography>
-              {/* <Typography variant="body2" color="inherit">
-                ID: 1030114
-              </Typography> */}
             </Grid>
-            {/* <Grid item>
-              <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                Search
-              </Typography>
-            </Grid> */}
           </Grid>
         </Grid>
       </Grid>

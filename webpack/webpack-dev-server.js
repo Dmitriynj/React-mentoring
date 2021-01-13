@@ -44,7 +44,7 @@ module.exports = {
   plugins: [
     ...plugins,
     new webpack.DefinePlugin({
-      'process.env.SERVICE_URL': JSON.stringify('http://localhost:8080/api'),
+      'process.env.SERVICE_URL': JSON.stringify('http://localhost:4000/'),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),

@@ -1,31 +1,19 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Card,
-  CardMedia,
-  Typography,
-  IconButton,
-  CardContent,
-  MenuItem,
-  Popover,
-} from '@material-ui/core';
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Card, CardMedia, CardHeader, Typography, CardContent } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { ModalButton } from './ModalButton';
 import { ManagedMovie } from './ManagedMovie';
-import { DeleteMovieConfirmation } from './DeleteMovieConfirmation';
 import { useAppState } from '../hooks/useAppState';
-import { movieFields } from '../constants';
 
 const useStyles = makeStyles({
   card: {
     maxWidth: 220,
-    border: 'none',
-    boxShadow: 'none',
-    backgroundColor: 'inherit',
-    color: '#afafaf',
+    backgroundColor: '#232323',
+    color: '#eeeeee',
     margin: '5px auto',
+  },
+  cardHeaderTitle: {
+    fontSize: 18,
   },
   wrapper: {
     position: 'relative',
@@ -67,74 +55,22 @@ const useStyles = makeStyles({
 
 const FilmCard = ({ title, imageUrl, description }) => {
   const classes = useStyles();
-  const popoverElement = useRef();
   const { setCurrentMovie } = useAppState();
 
   const openMovieDetails = () => {
+    document.querySelector('#header-content').scrollIntoView({
+      behavior: 'smooth',
+    });
     setCurrentMovie({ title, imageUrl, description });
   };
 
   return (
     <Card className={classes.card}>
-      <div className={classes.wrapper}>
-        <PopupState variant="popover" popupId="demo-popup-popover" className={classes.menuItem}>
-          {(popupState) => (
-            <div className={classes.moreContainer}>
-              <IconButton
-                aria-label="settings"
-                color="inherit"
-                className={classes.more}
-                {...bindTrigger(popupState)}
-              >
-                <MoreVertIcon />
-              </IconButton>
-
-              <Popover
-                ref={popoverElement}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                {...bindPopover(popupState)}
-              >
-                <MenuItem
-                  className={classes.menuItem}
-                  onClick={() => {
-                    popoverElement.current.style.display = 'none';
-                  }}
-                >
-                  <ModalButton
-                    title="Edit"
-                    actionText="edit"
-                    buttonClassName={classes.actionButton}
-                    onClose={popupState.close}
-                  >
-                    <ManagedMovie defaultMovieFields={movieFields} />
-                  </ModalButton>
-                </MenuItem>
-                <MenuItem
-                  className={classes.menuItem}
-                  onClick={() => {
-                    popoverElement.current.style.display = 'none';
-                  }}
-                >
-                  <ModalButton
-                    title="Confirmation"
-                    actionText="Delete movie"
-                    buttonClassName={classes.actionButton}
-                    onClose={popupState.close}
-                  >
-                    <DeleteMovieConfirmation
-                      onConfirm={() => {
-                        popupState.close();
-                      }}
-                    />
-                  </ModalButton>
-                </MenuItem>
-              </Popover>
-            </div>
-          )}
-        </PopupState>
-      </div>
+      <CardHeader
+        classes={{ title: classes.cardHeaderTitle }}
+        action={<ManagedMovie />}
+        title={title}
+      />
       <CardMedia
         className={classes.media}
         image={imageUrl}

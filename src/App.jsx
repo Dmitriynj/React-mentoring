@@ -8,7 +8,7 @@ import './index.css';
 const useStyles = makeStyles(() => ({
   main: { paddingTop: 20 },
   background: {
-    backgroundColor: '#232323',
+    backgroundColor: '#424242',
     width: '100%',
   },
 }));

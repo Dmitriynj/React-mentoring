@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
 import { reduce, uniqueId, isEmpty } from 'lodash';
+import { fetchMovies } from '../store/thunks';
+import { getMovies } from '../store/selectors';
 import { FilmCard } from './FilmCard';
 
 const mockedFilmsList = [
@@ -71,51 +75,75 @@ const mockedFilmsList = [
   },
 ];
 
-const getFilmsPortion = (filmPortion) => {
-  return filmPortion.map(({ title, description, imageUrl }) => (
-    <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
-      <FilmCard title={title} description={description} imageUrl={imageUrl} />
-    </Grid>
-  ));
-};
+const FilmsListStateless = ({ movies, getMoviesRequest }) => {
+  useEffect(() => {
+    getMoviesRequest();
+  }, []);
 
-const filmElements = reduce(
-  mockedFilmsList,
-  ({ result, temp }, filmData, index) => {
-    if (index % 4 === 0 && !isEmpty(temp)) {
+  console.log('render', movies);
+
+  const getFilmsPortion = (filmPortion) => {
+    return filmPortion.map(({ title, overview, poster_path }) => (
+      <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
+        <FilmCard title={title} description={overview} imageUrl={poster_path} />
+      </Grid>
+    ));
+  };
+
+  const filmElements = reduce(
+    movies.data,
+    ({ result, temp }, filmData, index) => {
+      if (index % 4 === 0 && !isEmpty(temp)) {
+        return {
+          result: [
+            ...result,
+            <Grid container item xs={12} key={`films-row-${uniqueId()}`}>
+              {getFilmsPortion(temp)}
+            </Grid>,
+          ],
+          temp: [filmData],
+        };
+      }
+
+      if (index === mockedFilmsList.length - 1) {
+        return {
+          result: [
+            ...result,
+            <Grid container item xs={12} key={`films-row-${uniqueId()}`}>
+              {getFilmsPortion([...temp, filmData])}
+            </Grid>,
+          ],
+          temp: [],
+        };
+      }
+
       return {
-        result: [
-          ...result,
-          <Grid container item xs={12} key={`films-row-${uniqueId()}`}>
-            {getFilmsPortion(temp)}
-          </Grid>,
-        ],
-        temp: [filmData],
+        result,
+        temp: [...temp, filmData],
       };
-    }
+    },
+    { result: [], temp: [] }
+  );
 
-    if (index === mockedFilmsList.length - 1) {
-      return {
-        result: [
-          ...result,
-          <Grid container item xs={12} key={`films-row-${uniqueId()}`}>
-            {getFilmsPortion([...temp, filmData])}
-          </Grid>,
-        ],
-        temp: [],
-      };
-    }
-
-    return {
-      result,
-      temp: [...temp, filmData],
-    };
-  },
-  { result: [], temp: [] }
-);
-
-const FilmsList = () => {
   return <Grid container>{filmElements.result}</Grid>;
 };
+
+FilmsListStateless.propTypes = {
+  movies: PropTypes.object,
+  getMoviesRequest: PropTypes.func.isRequired,
+};
+FilmsListStateless.defaultProps = {
+  movies: undefined,
+};
+
+const mapStateToProps = (state) => ({
+  movies: getMovies(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getMoviesRequest: () => dispatch(fetchMovies()),
+});
+
+const FilmsList = connect(mapStateToProps, mapDispatchToProps)(FilmsListStateless);
 
 export { FilmsList };

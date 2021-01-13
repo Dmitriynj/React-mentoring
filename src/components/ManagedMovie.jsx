@@ -1,74 +1,65 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
+import { IconButton, MenuItem, Menu } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
-import { Input, InputLabel, Button } from '@material-ui/core';
-import { uniqueId, map } from 'lodash';
-import { MODAL_BUTTONS_STYLES } from '../constants';
+import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import { EditMovieModalContent } from './EditMovieModalContent';
+import { DeleteMovieModalContent } from './DeleteMovieModalContent';
+import { withModalWrapper } from './withModalWrapper';
+
+const EditMovieModal = withModalWrapper(EditMovieModalContent, 'Edit movie');
+const DeleteMovieModal = withModalWrapper(DeleteMovieModalContent, 'Delete movie');
 
 const useStyles = makeStyles(() => ({
-  field: {
-    padding: '5px 0 5px 0',
-  },
-  input: {
-    background: '#2e2e2e',
-    color: 'white',
-    fontWeight: 400,
-    padding: '0 5px 0 5px',
-    width: '100%',
-    '&::after': {
-      borderBottomColor: '#f65261',
-    },
-  },
-  label: {
-    fontWeight: 400,
-    color: '#f65261',
-    fontSize: 14,
-    marginBottom: 2,
-  },
-  footer: {
-    marginLeft: 'auto',
-  },
-  ...MODAL_BUTTONS_STYLES,
+  menu: { backgroundColor: '#232323', color: 'white' },
 }));
 
-const ManagedMovie = ({ defaultMovieFields }) => {
+const ManagedMovie = () => {
   const classes = useStyles();
-  const [movieFields] = useState(defaultMovieFields);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
 
-  const fieldElement = ({ value, name }) => {
-    return (
-      <section className={classes.field} key={`field-${uniqueId()}`}>
-        <InputLabel className={classes.label}>{name}</InputLabel>
-        <Input defaultValue={value} type="text" className={classes.input} />
-      </section>
-    );
+  const handleOpenEditModal = useCallback(() => {
+    setOpenEditModal(true);
+  }, []);
+  const handleCloseEditModal = useCallback(() => {
+    setOpenEditModal(false);
+  }, []);
+
+  const handleOpenDeleteModal = useCallback(() => {
+    setOpenDeleteModal(true);
+  }, []);
+  const handleCloseDeleteModal = useCallback(() => {
+    setOpenDeleteModal(false);
+  }, []);
+
+  const onOpenEditMovieModal = () => {
+    handleOpenEditModal();
+    popupState.close();
   };
-
-  const fieldElements = map(movieFields, fieldElement);
+  const onOpenDeleteMovieModal = () => {
+    handleOpenDeleteModal();
+    popupState.close();
+  };
 
   return (
     <>
-      {fieldElements}
-      <section className={classes.footer}>
-        <Button className={classes.resetButton}>Reset</Button>
-        <Button className={classes.confirmButton}>Submit</Button>
-      </section>
+      <IconButton aria-label="settings" color="inherit" {...bindTrigger(popupState)}>
+        <MoreVertIcon />
+      </IconButton>
+      <Menu classes={{ paper: classes.menu }} {...bindMenu(popupState)}>
+        <MenuItem onClick={onOpenEditMovieModal}>Edit</MenuItem>
+        <MenuItem onClick={onOpenDeleteMovieModal}>Delete</MenuItem>
+      </Menu>
+      <EditMovieModal open={openEditModal} handleClose={handleCloseEditModal} />
+      <DeleteMovieModal
+        open={openDeleteModal}
+        handleClose={handleCloseDeleteModal}
+        onConfirm={handleCloseDeleteModal}
+      />
     </>
   );
-};
-
-ManagedMovie.propTypes = {
-  defaultMovieFields: PropTypes.array,
-};
-ManagedMovie.defaultProps = {
-  defaultMovieFields: [
-    { name: 'TITLE' },
-    { name: 'RELEASE DATE' },
-    { name: 'MOVIE URL' },
-    { name: 'GENRE' },
-    { name: 'OVERVIEW' },
-    { name: 'RUNTIME' },
-  ],
 };
 
 export { ManagedMovie };

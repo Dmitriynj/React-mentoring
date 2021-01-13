@@ -6,11 +6,10 @@ import { MODAL_BUTTONS_STYLES } from '../constants';
 
 const useStyles = makeStyles(() => ({
   footer: { display: 'flex', justifyContent: 'flex-end', padding: 10 },
-
   ...MODAL_BUTTONS_STYLES,
 }));
 
-const DeleteMovieConfirmation = ({ onConfirm }) => {
+const DeleteMovieModalContent = ({ onConfirm }) => {
   const classes = useStyles();
 
   return (
@@ -25,11 +24,11 @@ const DeleteMovieConfirmation = ({ onConfirm }) => {
   );
 };
 
-DeleteMovieConfirmation.propTypes = {
+DeleteMovieModalContent.propTypes = {
   onConfirm: PropTypes.func,
 };
-DeleteMovieConfirmation.defaultProps = {
+DeleteMovieModalContent.defaultProps = {
   onConfirm: () => {},
 };
 
-export { DeleteMovieConfirmation };
+export { DeleteMovieModalContent };

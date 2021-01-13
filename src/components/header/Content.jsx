@@ -19,7 +19,7 @@ const Content = () => {
   const { currentMovie } = useAppState();
 
   return (
-    <div className={classes.shadowed}>
+    <div className={classes.shadowed} id="header-content">
       {isEmpty(currentMovie) ? <Search /> : <MovieDetails {...currentMovie} />}
     </div>
   );
