@@ -4,6 +4,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { changeQueryOptions } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -14,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   inputLabel: {
-    color: 'black',
+    color: 'white',
     marginRight: 6,
     marginBottom: 2,
     fontSize: 14,
   },
   select: {
     color: 'white',
-    width: 60,
+    width: 80,
     fontSize: 14,
   },
   underline: {
@@ -36,14 +40,32 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     fontSize: 14,
   },
+  sortDirectionButton: {
+    color: '#f65261',
+  },
 }));
 
-const Sorting = () => {
+const SortingStateless = ({ updateQueryOptions }) => {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [sortBy, setSortBy] = React.useState('');
+  const [isAscOrder, setIsAscOrder] = React.useState(true);
+  const sortDirection = isAscOrder ? 'asc' : 'desc';
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    const newSortBy = event.target.value || 'release_date';
+    updateQueryOptions({
+      sortBy: newSortBy,
+    });
+    setSortBy(newSortBy);
+  };
+
+  const changeSortOrder = () => {
+    const newIsAscOrder = !isAscOrder;
+    const newSortDirection = newIsAscOrder ? 'asc' : 'desc';
+    updateQueryOptions({
+      sortOrder: newSortDirection,
+    });
+    setIsAscOrder(newIsAscOrder);
   };
 
   return (
@@ -64,21 +86,37 @@ const Sorting = () => {
         }}
         input={<Input classes={{ underline: classes.underline }} />}
         id="demo-simple-select"
-        value={age}
+        value={sortBy}
         onChange={handleChange}
+        displayEmpty
       >
-        <MenuItem value={10} classes={{ root: classes.menuItem }}>
-          RELEASE DATE
+        <MenuItem value="">
+          <em>RELEASE DATE</em>
         </MenuItem>
-        <MenuItem value={20} classes={{ root: classes.menuItem }}>
-          PRICE
+        <MenuItem value="vote_average" classes={{ root: classes.menuItem }}>
+          AVG VOTE
         </MenuItem>
-        <MenuItem value={30} classes={{ root: classes.menuItem }}>
-          GENRE
+        <MenuItem value="budget" classes={{ root: classes.menuItem }}>
+          BUDGET
         </MenuItem>
       </Select>
+      <TableSortLabel
+        className={classes.sortDirectionButton}
+        active
+        direction={sortDirection}
+        onClick={changeSortOrder}
+      />
     </div>
   );
 };
+SortingStateless.propTypes = {
+  updateQueryOptions: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  updateQueryOptions: (data) => dispatch(changeQueryOptions(data)),
+});
+
+const Sorting = connect(null, mapDispatchToProps)(SortingStateless);
 
 export { Sorting };

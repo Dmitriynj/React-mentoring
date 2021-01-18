@@ -50,10 +50,15 @@ const useStyles = makeStyles({
       background: '#232323',
     },
   },
-  editMovieButton: {},
+  description: {
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical',
+  },
 });
 
-const FilmCard = ({ title, imageUrl, description }) => {
+const FilmCard = ({ id, title, imageUrl, description, genres, releaseDate, avgVote, budget }) => {
   const classes = useStyles();
   const { setCurrentMovie } = useAppState();
 
@@ -64,11 +69,13 @@ const FilmCard = ({ title, imageUrl, description }) => {
     setCurrentMovie({ title, imageUrl, description });
   };
 
+  console.log('movie id', id);
+
   return (
     <Card className={classes.card}>
       <CardHeader
         classes={{ title: classes.cardHeaderTitle }}
-        action={<ManagedMovie />}
+        action={<ManagedMovie id={id} />}
         title={title}
       />
       <CardMedia
@@ -78,9 +85,22 @@ const FilmCard = ({ title, imageUrl, description }) => {
         onClick={openMovieDetails}
       />
       <CardContent>
+        <div className={classes.description}>
+          <Typography variant="body2" component="p">
+            {description}
+          </Typography>
+        </div>
         <Typography variant="body2" component="p">
-          {title}
-          {description}
+          Genres: {genres.join(',')}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Release date: {releaseDate}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Avg vote: {avgVote}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Budget: {budget}
         </Typography>
       </CardContent>
     </Card>
@@ -88,9 +108,19 @@ const FilmCard = ({ title, imageUrl, description }) => {
 };
 
 FilmCard.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
+  genres: PropTypes.array.isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  avgVote: PropTypes.number,
+  budget: PropTypes.number,
+};
+FilmCard.defaultProps = {
+  imageUrl: '',
+  avgVote: 0,
+  budget: 0,
 };
 
 export { FilmCard };

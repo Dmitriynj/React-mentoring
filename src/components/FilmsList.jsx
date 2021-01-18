@@ -4,94 +4,39 @@ import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { reduce, uniqueId, isEmpty } from 'lodash';
 import { fetchMovies } from '../store/thunks';
-import { getMovies } from '../store/selectors';
+import { getMoviesData, getQueryOptions } from '../store/selectors';
 import { FilmCard } from './FilmCard';
 
-const mockedFilmsList = [
-  {
-    title: 'Some',
-    description: 'Description',
-    imageUrl: 'sample.jpg',
-  },
-  {
-    title: 'Some1',
-    description: 'Description1',
-    imageUrl: 'sample1.jpg',
-  },
-  {
-    title: 'Some1',
-    description: 'Description2',
-    imageUrl: 'sample2.jpg',
-  },
-  {
-    title: 'Some3',
-    description: 'Description3',
-    imageUrl: 'sample3.jpg',
-  },
-  {
-    title: 'Some4',
-    description: 'Description4',
-    imageUrl: 'sample4.jpg',
-  },
-  {
-    title: 'Some5',
-    description: 'Description5',
-    imageUrl: 'sample5.jpg',
-  },
-  {
-    title: 'Some6',
-    description: 'Description6',
-    imageUrl: 'sample6.jpg',
-  },
-  {
-    title: 'Some7',
-    description: 'Description7',
-    imageUrl: 'sample7.jpg',
-  },
-  {
-    title: 'Some8',
-    description: 'Description8',
-    imageUrl: 'sample8.jpg',
-  },
-  {
-    title: 'Some9',
-    description: 'Description8',
-    imageUrl: 'sample9.jpg',
-  },
-  {
-    title: 'Some10',
-    description: 'Description8',
-    imageUrl: 'sample10.jpg',
-  },
-  {
-    title: 'Some11',
-    description: 'Description8',
-    imageUrl: 'sample11.jpg',
-  },
-  {
-    title: 'Some12',
-    description: 'Description8',
-    imageUrl: 'sample12.jpg',
-  },
-];
+const FilmsListStateless = ({ moviesData, queryOptions, getMovies }) => {
+  const { data: movies } = moviesData;
 
-const FilmsListStateless = ({ movies, getMoviesRequest }) => {
   useEffect(() => {
-    getMoviesRequest();
-  }, []);
+    getMovies(queryOptions);
+  }, [queryOptions]);
 
   console.log('render', movies);
 
   const getFilmsPortion = (filmPortion) => {
-    return filmPortion.map(({ title, overview, poster_path }) => (
-      <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
-        <FilmCard title={title} description={overview} imageUrl={poster_path} />
-      </Grid>
-    ));
+    return filmPortion.map(
+      ({ id, title, overview, poster_path, genres, release_date, vote_average, budget }) => (
+        <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
+          <FilmCard
+            id={id}
+            title={title}
+            description={overview}
+            imageUrl={poster_path}
+            genres={genres}
+            releaseDate={release_date}
+            avgVote={vote_average}
+            budget={budget}
+          />
+        </Grid>
+      )
+    );
   };
 
   const filmElements = reduce(
-    movies.data,
+    movies,
     ({ result, temp }, filmData, index) => {
       if (index % 4 === 0 && !isEmpty(temp)) {
         return {
@@ -105,7 +50,7 @@ const FilmsListStateless = ({ movies, getMoviesRequest }) => {
         };
       }
 
-      if (index === mockedFilmsList.length - 1) {
+      if (index === movies.length - 1) {
         return {
           result: [
             ...result,
@@ -129,19 +74,18 @@ const FilmsListStateless = ({ movies, getMoviesRequest }) => {
 };
 
 FilmsListStateless.propTypes = {
-  movies: PropTypes.object,
-  getMoviesRequest: PropTypes.func.isRequired,
-};
-FilmsListStateless.defaultProps = {
-  movies: undefined,
+  moviesData: PropTypes.object.isRequired,
+  getMovies: PropTypes.func.isRequired,
+  queryOptions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
+  moviesData: getMoviesData(state),
+  queryOptions: getQueryOptions(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMoviesRequest: () => dispatch(fetchMovies()),
+  getMovies: (data) => dispatch(fetchMovies(data)),
 });
 
 const FilmsList = connect(mapStateToProps, mapDispatchToProps)(FilmsListStateless);

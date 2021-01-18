@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { IconButton, MenuItem, Menu } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,32 +15,25 @@ const useStyles = makeStyles(() => ({
   menu: { backgroundColor: '#232323', color: 'white' },
 }));
 
-const ManagedMovie = () => {
+const ManagedMovie = ({ id }) => {
   const classes = useStyles();
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
 
-  const handleOpenEditModal = useCallback(() => {
-    setOpenEditModal(true);
-  }, []);
   const handleCloseEditModal = useCallback(() => {
     setOpenEditModal(false);
-  }, []);
-
-  const handleOpenDeleteModal = useCallback(() => {
-    setOpenDeleteModal(true);
   }, []);
   const handleCloseDeleteModal = useCallback(() => {
     setOpenDeleteModal(false);
   }, []);
 
   const onOpenEditMovieModal = () => {
-    handleOpenEditModal();
+    setOpenEditModal(true);
     popupState.close();
   };
   const onOpenDeleteMovieModal = () => {
-    handleOpenDeleteModal();
+    setOpenDeleteModal(true);
     popupState.close();
   };
 
@@ -52,14 +46,23 @@ const ManagedMovie = () => {
         <MenuItem onClick={onOpenEditMovieModal}>Edit</MenuItem>
         <MenuItem onClick={onOpenDeleteMovieModal}>Delete</MenuItem>
       </Menu>
-      <EditMovieModal open={openEditModal} handleClose={handleCloseEditModal} />
+      <EditMovieModal
+        id={id}
+        open={openEditModal}
+        handleClose={handleCloseEditModal}
+        onConfirm={handleCloseEditModal}
+      />
       <DeleteMovieModal
+        id={id}
         open={openDeleteModal}
         handleClose={handleCloseDeleteModal}
         onConfirm={handleCloseDeleteModal}
       />
     </>
   );
+};
+ManagedMovie.propTypes = {
+  id: PropTypes.number.isRequired,
 };
 
 export { ManagedMovie };
