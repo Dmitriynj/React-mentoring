@@ -3,6 +3,7 @@
     "browser": true,
     "es2020": true
   },
+  // "parser": "babel-eslint",
   "extends": ["plugin:react/recommended", "airbnb", "prettier", "plugin:jest/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
@@ -39,6 +40,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-wrap-multilines": "off",
     "camelcase": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "no-use-before-define": "error"
   }
 }

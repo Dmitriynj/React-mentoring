@@ -26,7 +26,7 @@ const MoviePaginationStateless = ({ totalAmount, queryOptions, updateQueryOption
   const { limit, offset } = queryOptions;
   const classes = useStyles();
   const [page, setPage] = React.useState(offset / limit + 1);
-  const totalPagesAmount = totalAmount / limit;
+  const totalPagesAmount = Math.ceil(totalAmount / limit);
 
   const handleChange = (event, value) => {
     document.querySelector('#manage-panel').scrollIntoView({

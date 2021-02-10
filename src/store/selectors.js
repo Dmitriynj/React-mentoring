@@ -1,5 +1,5 @@
-export const getMoviesData = (state) => {
-  return state.moviesReducer.moviesData;
+export const getMovies = (state) => {
+  return state.moviesReducer.moviesData?.data;
 };
 
 export const getTotalMoviesAmount = (state) => {

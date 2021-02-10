@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { throttle, isEmpty } from 'lodash';
-import { NetflixLogo } from '../NetflixLogo';
-// import { ModalButton } from '../ModalButton';
-import { Content } from './Content';
-import { Loader } from '../Loader';
-import { useAppState } from '../../hooks/useAppState';
-import { AddMovieModalContent } from '../AddMovieModalContent';
-import { withModalWrapper } from '../withModalWrapper';
+import { connect } from 'react-redux';
+import { NetflixLogo } from '../components/NetflixLogo';
+import { Loader } from '../components/Loader';
+import { useAppState } from '../hooks/useAppState';
+import { ManageMovieForm } from './ManageMovieForm';
+import { ModalWrapper } from './ModalWrapper';
+import { Search } from './Search';
+import { MovieDetails } from '../views/MovieDetails';
+import { createMovie } from '../store/thunks';
 
 const CHANGE_HEADER_ON_SCROLLED_PIXELS = 280;
 const BACKGROUND_IMAGE_URL = 'background.jpg';
@@ -58,15 +61,18 @@ const useStyles = makeStyles(() => ({
     backgroundPosition: 'center center',
     backgroundImage: `url(${BACKGROUND_IMAGE_URL} )`,
   },
+  shadowed: {
+    backgroundImage: `-webkit-gradient(linear,left bottom,left top,color-stop(50%,rgba(0,0,0,0)),to(rgba(0,0,0,.7))),radial-gradient(50% 100%,rgba(0,0,0,0) 50%,rgba(0,0,0,.7) 100%)`,
+    width: '100%',
+    height: '100%',
+  },
 }));
 
-const AddMovieModal = withModalWrapper(AddMovieModalContent, 'Add movie');
-
-const Header = () => {
+const HeaderStateless = ({ addMovie }) => {
   const classes = useStyles();
   const { currentMovie, setCurrentMovie } = useAppState();
   const [showSearchIcon, setShowSearchIcon] = useState();
-  const [isOpenedAddModal, seIsOpenedAddModal] = useState(false);
+  const [isOpenModal, seIsOpenModal] = useState(false);
 
   React.useEffect(() => {
     if (isEmpty(currentMovie)) {
@@ -101,11 +107,14 @@ const Header = () => {
     setCurrentMovie({});
   };
 
-  const handleOpenAddMovieModal = () => {
-    seIsOpenedAddModal(true);
+  const switchIsOpenModal = () => {
+    seIsOpenModal((prev) => !prev);
   };
-  const onCloseAddMovieModal = () => {
-    seIsOpenedAddModal(false);
+
+  const onAddMovie = (values) => {
+    console.log('value', values);
+    addMovie(values);
+    switchIsOpenModal();
   };
 
   return (
@@ -121,35 +130,33 @@ const Header = () => {
               <SearchIcon />
             </IconButton>
           ) : (
-            // <ModalButton
-            //   title="Add Movie"
-            //   actionText="+Add Movie"
-            //   buttonClassName={classes.addMovieButton}
-            // >
-            //   <AddMovieModalContent />
-            // </ModalButton
             <>
-              <Button
-                type="button"
-                onClick={handleOpenAddMovieModal}
-                className={classes.addMovieButton}
-              >
+              <Button type="button" onClick={switchIsOpenModal} className={classes.addMovieButton}>
                 +Add Movie
               </Button>
-              <AddMovieModal
-                open={isOpenedAddModal}
-                handleClose={onCloseAddMovieModal}
-                onConfirm={onCloseAddMovieModal}
-              />
+              <ModalWrapper title="Add movie" open={isOpenModal} closeModal={switchIsOpenModal}>
+                <ManageMovieForm onConfirm={onAddMovie} />
+              </ModalWrapper>
             </>
           )}
         </Toolbar>
       </AppBar>
       <div className={classes.mainImage}>
-        <Content />
+        <div className={classes.shadowed} id="header-content">
+          {isEmpty(currentMovie) ? <Search /> : <MovieDetails {...currentMovie} />}
+        </div>
       </div>
     </>
   );
 };
+HeaderStateless.propTypes = {
+  addMovie: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addMovie: (data) => dispatch(createMovie(data)),
+});
+
+const Header = connect(null, mapDispatchToProps)(HeaderStateless);
 
 export { Header };

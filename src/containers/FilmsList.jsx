@@ -4,12 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { reduce, uniqueId, isEmpty } from 'lodash';
 import { fetchMovies } from '../store/thunks';
-import { getMoviesData, getQueryOptions } from '../store/selectors';
-import { FilmCard } from './FilmCard';
+import { getMovies, getQueryOptions } from '../store/selectors';
+import { FilmCard } from '../components/FilmCard';
 
-const FilmsListStateless = ({ moviesData, queryOptions, getMovies }) => {
-  const { data: movies } = moviesData;
-
+const FilmsListStateless = ({ movies, queryOptions, getMovies }) => {
   useEffect(() => {
     getMovies(queryOptions);
   }, [queryOptions]);
@@ -17,22 +15,11 @@ const FilmsListStateless = ({ moviesData, queryOptions, getMovies }) => {
   console.log('render', movies);
 
   const getFilmsPortion = (filmPortion) => {
-    return filmPortion.map(
-      ({ id, title, overview, poster_path, genres, release_date, vote_average, budget }) => (
-        <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
-          <FilmCard
-            id={id}
-            title={title}
-            description={overview}
-            imageUrl={poster_path}
-            genres={genres}
-            releaseDate={release_date}
-            avgVote={vote_average}
-            budget={budget}
-          />
-        </Grid>
-      )
-    );
+    return filmPortion.map((curMovie) => (
+      <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
+        <FilmCard movie={curMovie} />
+      </Grid>
+    ));
   };
 
   const filmElements = reduce(
@@ -74,13 +61,13 @@ const FilmsListStateless = ({ moviesData, queryOptions, getMovies }) => {
 };
 
 FilmsListStateless.propTypes = {
-  moviesData: PropTypes.object.isRequired,
+  movies: PropTypes.array.isRequired,
   getMovies: PropTypes.func.isRequired,
   queryOptions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  moviesData: getMoviesData(state),
+  movies: getMovies(state),
   queryOptions: getQueryOptions(state),
 });
 

@@ -10,7 +10,6 @@ import { changeQueryOptions } from '../store/actions';
 const useStyles = makeStyles({
   root: {
     backgroundColor: 'inherit',
-    // width: 400,
     color: 'white',
     border: 'none',
   },
@@ -29,7 +28,7 @@ const GenreSelectorStateless = ({ updateQueryOptions }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    updateQueryOptions({ filter: genres[newValue], searchBy: 'genres' });
+    updateQueryOptions({ filter: genres[newValue], searchBy: 'title' });
     setValue(newValue);
   };
 

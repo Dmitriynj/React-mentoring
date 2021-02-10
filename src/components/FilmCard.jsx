@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardHeader, Typography, CardContent } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { ManagedMovie } from './ManagedMovie';
+import { MovieAction } from '../containers/MovieAction';
 import { useAppState } from '../hooks/useAppState';
 
 const useStyles = makeStyles({
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FilmCard = ({ id, title, imageUrl, description, genres, releaseDate, avgVote, budget }) => {
+const FilmCard = ({ movie }) => {
   const classes = useStyles();
   const { setCurrentMovie } = useAppState();
 
@@ -66,41 +66,45 @@ const FilmCard = ({ id, title, imageUrl, description, genres, releaseDate, avgVo
     document.querySelector('#header-content').scrollIntoView({
       behavior: 'smooth',
     });
-    setCurrentMovie({ title, imageUrl, description });
+    setCurrentMovie({
+      title: movie.title,
+      imageUrl: movie.poster_path,
+      description: movie.overview,
+    });
   };
-
-  console.log('movie id', id);
 
   return (
     <Card className={classes.card}>
       <CardHeader
         classes={{ title: classes.cardHeaderTitle }}
-        action={<ManagedMovie id={id} />}
-        title={title}
+        action={<MovieAction movie={movie} />}
+        title={movie.title}
       />
-      <CardMedia
-        className={classes.media}
-        image={imageUrl}
-        title="Contemplative Reptile"
-        onClick={openMovieDetails}
-      />
+      {movie.poster_path && (
+        <CardMedia
+          className={classes.media}
+          image={movie.poster_path}
+          title="Contemplative Reptile"
+          onClick={openMovieDetails}
+        />
+      )}
       <CardContent>
         <div className={classes.description}>
           <Typography variant="body2" component="p">
-            {description}
+            {movie.overview}
           </Typography>
         </div>
         <Typography variant="body2" component="p">
-          Genres: {genres.join(',')}
+          Genres: {movie.genres.join(',')}
         </Typography>
         <Typography variant="body2" component="p">
-          Release date: {releaseDate}
+          Release date: {movie.release_date}
         </Typography>
         <Typography variant="body2" component="p">
-          Avg vote: {avgVote}
+          Avg vote: {movie.vote_average}
         </Typography>
         <Typography variant="body2" component="p">
-          Budget: {budget}
+          Budget: {movie.budget}
         </Typography>
       </CardContent>
     </Card>
@@ -108,19 +112,7 @@ const FilmCard = ({ id, title, imageUrl, description, genres, releaseDate, avgVo
 };
 
 FilmCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string,
-  genres: PropTypes.array.isRequired,
-  releaseDate: PropTypes.string.isRequired,
-  avgVote: PropTypes.number,
-  budget: PropTypes.number,
-};
-FilmCard.defaultProps = {
-  imageUrl: '',
-  avgVote: 0,
-  budget: 0,
+  movie: PropTypes.object.isRequired,
 };
 
 export { FilmCard };
