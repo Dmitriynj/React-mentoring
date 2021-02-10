@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { MainView } from './views/MainView';
-import { Header } from './components/header/Header';
+import { Header } from './containers/Header';
 import './reset.css';
 import './index.css';
 

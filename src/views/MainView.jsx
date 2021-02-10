@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FilmsList } from '../components/FilmsList';
-import { Sorting } from '../components/Sorting';
-import { MoviePagination } from '../components/MoviePagination';
-import { GenreSelector } from '../components/GenreSelector';
+import { FilmsList } from '../containers/FilmsList';
+import { Sorting } from '../containers/Sorting';
+import { MoviePagination } from '../containers/MoviePagination';
+import { GenreSelector } from '../containers/GenreSelector';
 
 const useStyles = makeStyles(() => ({
   genreButton: {

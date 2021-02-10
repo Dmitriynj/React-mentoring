@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
-import { changeQueryOptions } from '../../store/actions';
+import { changeQueryOptions } from '../store/actions';
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -13,10 +13,12 @@ const GENRES = [
   'Adventure',
   'Action',
   'Family',
+  'Fantasy',
   'Comedy',
   'Science Fiction',
   'Documentary',
   'War',
+  'Thriller',
 ];
 
 const useStyles = makeStyles(() => ({
