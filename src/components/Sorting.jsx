@@ -1,13 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { changeQueryOptions } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SortingStateless = ({ updateQueryOptions }) => {
+const Sorting = ({ onSort }) => {
   const classes = useStyles();
   const [sortBy, setSortBy] = React.useState('');
   const [isAscOrder, setIsAscOrder] = React.useState(true);
@@ -53,18 +51,14 @@ const SortingStateless = ({ updateQueryOptions }) => {
 
   const handleChange = (event) => {
     const newSortBy = event.target.value || 'release_date';
-    updateQueryOptions({
-      sortBy: newSortBy,
-    });
+    onSort({ sortBy: newSortBy });
     setSortBy(newSortBy);
   };
 
   const changeSortOrder = () => {
     const newIsAscOrder = !isAscOrder;
     const newSortDirection = newIsAscOrder ? 'asc' : 'desc';
-    updateQueryOptions({
-      sortOrder: newSortDirection,
-    });
+    onSort({ sortOrder: newSortDirection });
     setIsAscOrder(newIsAscOrder);
   };
 
@@ -109,14 +103,8 @@ const SortingStateless = ({ updateQueryOptions }) => {
     </div>
   );
 };
-SortingStateless.propTypes = {
-  updateQueryOptions: PropTypes.func.isRequired,
+Sorting.propTypes = {
+  onSort: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  updateQueryOptions: (data) => dispatch(changeQueryOptions(data)),
-});
-
-const Sorting = connect(null, mapDispatchToProps)(SortingStateless);
 
 export { Sorting };

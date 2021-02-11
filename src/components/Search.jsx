@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Input } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { debounce } from 'lodash';
-import { changeQueryOptions } from '../store/actions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,16 +30,13 @@ const useStyles = makeStyles(() => ({
 
 const ON_INPUT_VALIDATION_DELAY = 300;
 
-const SearchStateless = ({ updateQueryOption }) => {
+const Search = ({ onSearch }) => {
   const classes = useStyles();
 
-  const onInputChange = debounce((event) => {
-    const { value } = event.target;
-    updateQueryOption({
-      search: value,
-      searchBy: 'title',
-    });
-  }, ON_INPUT_VALIDATION_DELAY);
+  const onInputChange = debounce(
+    (event) => onSearch(event.target.value),
+    ON_INPUT_VALIDATION_DELAY
+  );
 
   return (
     <div className={classes.root}>
@@ -52,14 +47,9 @@ const SearchStateless = ({ updateQueryOption }) => {
     </div>
   );
 };
-SearchStateless.propTypes = {
-  updateQueryOption: PropTypes.func.isRequired,
+
+Search.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  updateQueryOption: (data) => dispatch(changeQueryOptions(data)),
-});
-
-const Search = connect(null, mapDispatchToProps)(SearchStateless);
 
 export { Search };

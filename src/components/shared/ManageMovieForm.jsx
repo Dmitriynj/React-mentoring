@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormField } from '../components/FormField';
+import { FormField } from '../FormField';
 
 const GENRES = [
   'Drama',

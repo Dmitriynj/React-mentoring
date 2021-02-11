@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { connect } from 'react-redux';
-import { getLoading } from '../store/selectors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,19 +13,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoaderStateless = ({ loading }) => {
+const Loader = ({ loading }) => {
   const classes = useStyles();
   return <div className={classes.root}>{loading && <LinearProgress color="secondary" />}</div>;
 };
 
-LoaderStateless.propTypes = {
+Loader.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  loading: getLoading(state),
-});
-
-const Loader = connect(mapStateToProps, null)(LoaderStateless);
 
 export { Loader };

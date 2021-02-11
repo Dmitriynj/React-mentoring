@@ -8,14 +8,12 @@ import { connect } from 'react-redux';
 import { NetflixLogo } from '../components/NetflixLogo';
 import { Loader } from '../components/Loader';
 import { useAppState } from '../hooks/useAppState';
-import { ManageMovieForm } from './ManageMovieForm';
-import { ModalWrapper } from './ModalWrapper';
-import { Search } from './Search';
-import { MovieDetails } from '../views/MovieDetails';
+import { ManageMovieForm } from '../components/shared/ManageMovieForm';
+import { ModalWrapper } from '../components/shared/ModalWrapper';
 import { createMovie } from '../store/thunks';
+import { getLoading } from '../store/selectors';
 
 const CHANGE_HEADER_ON_SCROLLED_PIXELS = 280;
-const BACKGROUND_IMAGE_URL = 'background.jpg';
 
 const useStyles = makeStyles(() => ({
   addMovieButton: {
@@ -47,28 +45,9 @@ const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
   },
-  mainImage: {
-    border: 0,
-    height: '60vh',
-    margin: 0,
-    display: 'flex',
-    padding: 0,
-    overflow: 'hidden',
-    position: 'relative',
-    maxHeight: 1000,
-    alignItems: 'center',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-    backgroundImage: `url(${BACKGROUND_IMAGE_URL} )`,
-  },
-  shadowed: {
-    backgroundImage: `-webkit-gradient(linear,left bottom,left top,color-stop(50%,rgba(0,0,0,0)),to(rgba(0,0,0,.7))),radial-gradient(50% 100%,rgba(0,0,0,0) 50%,rgba(0,0,0,.7) 100%)`,
-    width: '100%',
-    height: '100%',
-  },
 }));
 
-const HeaderStateless = ({ addMovie }) => {
+const HeaderStateless = ({ loading, addMovie }) => {
   const classes = useStyles();
   const { currentMovie, setCurrentMovie } = useAppState();
   const [showSearchIcon, setShowSearchIcon] = useState();
@@ -118,45 +97,43 @@ const HeaderStateless = ({ addMovie }) => {
   };
 
   return (
-    <>
-      <AppBar position="static" className={classes.header}>
-        <Loader />
-        <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" className={classes.title}>
-            <NetflixLogo className={classes.logo} />
-          </Typography>
-          {showSearchIcon ? (
-            <IconButton color="inherit" onClick={switchToInput}>
-              <SearchIcon />
-            </IconButton>
-          ) : (
-            <>
-              <Button type="button" onClick={switchIsOpenModal} className={classes.addMovieButton}>
-                +Add Movie
-              </Button>
-              <ModalWrapper title="Add movie" open={isOpenModal} closeModal={switchIsOpenModal}>
-                <ManageMovieForm onConfirm={onAddMovie} />
-              </ModalWrapper>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-      <div className={classes.mainImage}>
-        <div className={classes.shadowed} id="header-content">
-          {isEmpty(currentMovie) ? <Search /> : <MovieDetails {...currentMovie} />}
-        </div>
-      </div>
-    </>
+    <AppBar position="static" className={classes.header}>
+      <Loader loading={loading} />
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="h6" className={classes.title}>
+          <NetflixLogo className={classes.logo} />
+        </Typography>
+        {showSearchIcon ? (
+          <IconButton color="inherit" onClick={switchToInput}>
+            <SearchIcon />
+          </IconButton>
+        ) : (
+          <>
+            <Button type="button" onClick={switchIsOpenModal} className={classes.addMovieButton}>
+              +Add Movie
+            </Button>
+            <ModalWrapper title="Add movie" open={isOpenModal} closeModal={switchIsOpenModal}>
+              <ManageMovieForm onConfirm={onAddMovie} />
+            </ModalWrapper>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 HeaderStateless.propTypes = {
   addMovie: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  loading: getLoading(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addMovie: (data) => dispatch(createMovie(data)),
 });
 
-const Header = connect(null, mapDispatchToProps)(HeaderStateless);
+const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderStateless);
 
 export { Header };

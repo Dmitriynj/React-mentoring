@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 import { connect } from 'react-redux';
 import { removeMovie, updateMovie } from '../store/thunks';
-import { ManageMovieForm } from './ManageMovieForm';
-import { ModalWrapper } from './ModalWrapper';
+import { ManageMovieForm } from '../components/shared/ManageMovieForm';
+import { ModalWrapper } from '../components/shared/ModalWrapper';
 import { DeleteMovieForm } from '../components/DeleteMovieForm';
 
 const useStyles = makeStyles(() => ({

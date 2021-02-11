@@ -1,3 +1,4 @@
+// TODO - replace get with map
 export const getMovies = (state) => {
   return state.moviesReducer.moviesData?.data;
 };

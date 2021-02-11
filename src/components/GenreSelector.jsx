@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { connect } from 'react-redux';
-import { changeQueryOptions } from '../store/actions';
 
 const useStyles = makeStyles({
   root: {
@@ -23,12 +21,12 @@ const genres = {
   4: ['Crime'],
 };
 
-const GenreSelectorStateless = ({ updateQueryOptions }) => {
+const GenreSelector = ({ onChooseGenre }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    updateQueryOptions({ filter: genres[newValue], searchBy: 'title' });
+    onChooseGenre({ filter: genres[newValue], searchBy: 'title' });
     setValue(newValue);
   };
 
@@ -44,14 +42,8 @@ const GenreSelectorStateless = ({ updateQueryOptions }) => {
     </Paper>
   );
 };
-GenreSelectorStateless.propTypes = {
-  updateQueryOptions: PropTypes.func.isRequired,
+GenreSelector.propTypes = {
+  onChooseGenre: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  updateQueryOptions: (data) => dispatch(changeQueryOptions(data)),
-});
-
-const GenreSelector = connect(null, mapDispatchToProps)(GenreSelectorStateless);
 
 export { GenreSelector };
