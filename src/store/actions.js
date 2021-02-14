@@ -15,12 +15,6 @@ export const getMoviesFailure = (error) => ({
   payload: { error },
 });
 
-export const CHANGE_QUERY_OPTIONS = 'CHANGE_QUERY_OPTIONS';
-export const changeQueryOptions = (queryOptions) => ({
-  type: CHANGE_QUERY_OPTIONS,
-  payload: { queryOptions },
-});
-
 export const GET_MOVIE_BY_ID_IN_PROGRESS = 'GET_MOVIE_BY_ID_IN_PROGRESS';
 export const getMovieByIdInProgress = (id) => ({
   type: GET_MOVIE_BY_ID_IN_PROGRESS,
@@ -34,6 +28,11 @@ export const getMovieByIdSuccess = (data) => ({
 export const GET_MOVIE_BY_ID_FAILURE = 'GET_MOVIE_BY_ID_FAILURE';
 export const getMovieByIdFailure = () => ({
   type: GET_MOVIE_BY_ID_FAILURE,
+});
+
+export const CLEAR_MOVIE_DETAILS = 'CLEAR_MOVIE_DETAILS';
+export const clearMovieDetails = () => ({
+  type: CLEAR_MOVIE_DETAILS,
 });
 
 export const UPDATE_MOVIE_IN_PROGRESS = 'UPDATE_MOVIE_IN_PROGRESS';

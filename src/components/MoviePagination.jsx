@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { useQuery } from '../hooks/useQuery';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,39 +21,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MoviePagination = ({ totalAmount, limit, offset, onChangePage }) => {
+const MoviePagination = ({ totalAmount, limit, offset }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(offset / limit + 1);
   const totalPagesAmount = Math.ceil(totalAmount / limit);
+  const history = useHistory();
+  const { query } = useQuery();
 
   const handleChange = (event, value) => {
     document.querySelector('#manage-panel').scrollIntoView({
       behavior: 'smooth',
     });
-    onChangePage({ offset: limit * (value - 1) });
+    query.set('offset', limit * (value - 1));
+    history.push({ pathname: '/movies', search: query.toString() });
     setPage(value);
   };
 
   return (
     <div className={classes.root}>
-      <Pagination
-        count={totalPagesAmount}
-        page={page}
-        onChange={handleChange}
-        className={classes.paginationRoot}
-      />
+      {totalAmount > 0 && (
+        <Pagination
+          count={totalPagesAmount}
+          page={page}
+          onChange={handleChange}
+          className={classes.paginationRoot}
+        />
+      )}
     </div>
   );
 };
 
 MoviePagination.propTypes = {
   totalAmount: PropTypes.number,
-  limit: PropTypes.number.isRequired,
-  offset: PropTypes.number.isRequired,
-  onChangePage: PropTypes.func.isRequired,
+  limit: PropTypes.number,
+  offset: PropTypes.number,
 };
 MoviePagination.defaultProps = {
   totalAmount: 0,
+  limit: 10,
+  offset: 0,
 };
 
 export { MoviePagination };

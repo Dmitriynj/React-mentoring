@@ -1,20 +1,12 @@
 // TODO - replace get with map
-export const getMovies = (state) => {
-  return state.moviesReducer.moviesData?.data;
+export const mapMoviesData = (state) => {
+  return state.moviesReducer.moviesData;
 };
 
-export const getTotalMoviesAmount = (state) => {
-  return state.moviesReducer.moviesData?.totalAmount;
-};
-
-export const getLoading = (state) => {
+export const mapLoading = (state) => {
   return state.moviesReducer.loading;
 };
 
-export const getQueryOptions = (state) => {
-  return state.moviesReducer.queryOptions;
-};
-
-export const getCurEditingMovie = (state) => {
-  return state.moviesReducer.curEditingMovie;
+export const mapMovieDetails = (state) => {
+  return state.moviesReducer.movieDetails;
 };

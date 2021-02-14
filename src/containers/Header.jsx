@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -7,11 +8,11 @@ import { throttle, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import { NetflixLogo } from '../components/NetflixLogo';
 import { Loader } from '../components/Loader';
-import { useAppState } from '../hooks/useAppState';
 import { ManageMovieForm } from '../components/shared/ManageMovieForm';
 import { ModalWrapper } from '../components/shared/ModalWrapper';
 import { createMovie } from '../store/thunks';
-import { getLoading } from '../store/selectors';
+import { mapLoading, mapMovieDetails } from '../store/selectors';
+import { clearMovieDetails } from '../store/actions';
 
 const CHANGE_HEADER_ON_SCROLLED_PIXELS = 280;
 
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   header: {
+    display: 'flex',
     position: 'fixed',
     color: '#f65261',
     background: 'transparent',
@@ -47,9 +49,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HeaderStateless = ({ loading, addMovie }) => {
+const HeaderStateless = ({ loading, addMovie, currentMovie, clearMovie }) => {
   const classes = useStyles();
-  const { currentMovie, setCurrentMovie } = useAppState();
+  const history = useHistory();
   const [showSearchIcon, setShowSearchIcon] = useState();
   const [isOpenModal, seIsOpenModal] = useState(false);
 
@@ -83,7 +85,8 @@ const HeaderStateless = ({ loading, addMovie }) => {
 
   const switchToInput = () => {
     setShowSearchIcon(false);
-    setCurrentMovie({});
+    history.push('/movies');
+    clearMovie();
   };
 
   const switchIsOpenModal = () => {
@@ -122,16 +125,23 @@ const HeaderStateless = ({ loading, addMovie }) => {
   );
 };
 HeaderStateless.propTypes = {
+  currentMovie: PropTypes.object,
   addMovie: PropTypes.func.isRequired,
+  clearMovie: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+};
+HeaderStateless.defaultProps = {
+  currentMovie: {},
 };
 
 const mapStateToProps = (state) => ({
-  loading: getLoading(state),
+  currentMovie: mapMovieDetails(state),
+  loading: mapLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addMovie: (data) => dispatch(createMovie(data)),
+  clearMovie: () => dispatch(clearMovieDetails()),
 });
 
 const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderStateless);

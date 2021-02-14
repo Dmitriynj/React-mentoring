@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { useQuery } from '../hooks/useQuery';
 
 const useStyles = makeStyles({
   root: {
@@ -21,14 +22,21 @@ const genres = {
   4: ['Crime'],
 };
 
-const GenreSelector = ({ onChooseGenre }) => {
+const GenreSelector = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const { query } = useQuery();
 
   const handleChange = (event, newValue) => {
-    onChooseGenre({ filter: genres[newValue], searchBy: 'title' });
+    query.set('filter', genres[newValue]);
+    query.set('searchBy', 'title');
+
+    history.push({ pathname: '/movies', search: query.toString() });
     setValue(newValue);
   };
+
+  console.log('render genre selector comp');
 
   return (
     <Paper className={classes.root}>
@@ -41,9 +49,6 @@ const GenreSelector = ({ onChooseGenre }) => {
       </Tabs>
     </Paper>
   );
-};
-GenreSelector.propTypes = {
-  onChooseGenre: PropTypes.func.isRequired,
 };
 
 export { GenreSelector };

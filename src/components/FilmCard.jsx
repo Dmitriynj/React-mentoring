@@ -1,9 +1,10 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardHeader, Typography, CardContent } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { MovieAction } from '../containers/MovieAction';
-import { useAppState } from '../hooks/useAppState';
+// import { useAppState } from '../hooks/useAppState';
 
 const useStyles = makeStyles({
   card: {
@@ -60,17 +61,13 @@ const useStyles = makeStyles({
 
 const FilmCard = ({ movie }) => {
   const classes = useStyles();
-  const { setCurrentMovie } = useAppState();
+  const history = useHistory();
 
   const openMovieDetails = () => {
     document.querySelector('#header-content').scrollIntoView({
       behavior: 'smooth',
     });
-    setCurrentMovie({
-      title: movie.title,
-      imageUrl: movie.poster_path,
-      description: movie.overview,
-    });
+    history.push(`/movie/${movie.id}`);
   };
 
   return (

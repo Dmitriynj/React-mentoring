@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { useQuery } from '../hooks/useQuery';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -43,22 +44,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sorting = ({ onSort }) => {
+const Sorting = () => {
   const classes = useStyles();
   const [sortBy, setSortBy] = React.useState('');
   const [isAscOrder, setIsAscOrder] = React.useState(true);
   const sortDirection = isAscOrder ? 'asc' : 'desc';
+  const history = useHistory();
+  const { query } = useQuery();
+
+  const onSort = () => {
+    history.push({ pathname: '/movies', search: query.toString() });
+  };
 
   const handleChange = (event) => {
     const newSortBy = event.target.value || 'release_date';
-    onSort({ sortBy: newSortBy });
+    query.set('sortBy', newSortBy);
+    onSort();
     setSortBy(newSortBy);
   };
 
   const changeSortOrder = () => {
     const newIsAscOrder = !isAscOrder;
     const newSortDirection = newIsAscOrder ? 'asc' : 'desc';
-    onSort({ sortOrder: newSortDirection });
+    query.set('sortOrder', newSortDirection);
+    onSort();
     setIsAscOrder(newIsAscOrder);
   };
 
@@ -102,9 +111,6 @@ const Sorting = ({ onSort }) => {
       />
     </div>
   );
-};
-Sorting.propTypes = {
-  onSort: PropTypes.func.isRequired,
 };
 
 export { Sorting };

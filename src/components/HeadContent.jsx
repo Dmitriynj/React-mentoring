@@ -1,12 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { isEmpty } from 'lodash';
-import { useAppState } from '../hooks/useAppState';
-import { Search } from '../components/Search';
-import { MovieDetails } from '../components/MovieDetails';
-import { changeQueryOptions } from '../store/actions';
+import { MovieDetails } from '../containers/MovieDetails';
+import { Search } from './Search';
 
 const BACKGROUND_IMAGE_URL = 'background.jpg';
 
@@ -32,33 +28,23 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HeadContentStateless = ({ updateQueryOption }) => {
+const HeadContent = () => {
   const classes = useStyles();
-  const { currentMovie } = useAppState();
-
-  const search = (value) => {
-    updateQueryOption({
-      search: value,
-      searchBy: 'title',
-    });
-  };
 
   return (
     <div className={classes.mainImage}>
       <div className={classes.shadowed} id="header-content">
-        {isEmpty(currentMovie) ? <Search onSearch={search} /> : <MovieDetails {...currentMovie} />}
+        <Switch>
+          <Route exact path={['/movies', '/no-movies']}>
+            <Search />
+          </Route>
+          <Route exact path={['/movie/:id', '/movies']}>
+            <MovieDetails />
+          </Route>
+        </Switch>
       </div>
     </div>
   );
 };
-HeadContentStateless.propTypes = {
-  updateQueryOption: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  updateQueryOption: (data) => dispatch(changeQueryOptions(data)),
-});
-
-const HeadContent = connect(null, mapDispatchToProps)(HeadContentStateless);
 
 export { HeadContent };

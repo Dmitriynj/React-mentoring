@@ -2,7 +2,6 @@ import {
   GET_MOVIES_IN_PROGRESS,
   GET_MOVIES_SUCCESS,
   GET_MOVIES_FAILURE,
-  CHANGE_QUERY_OPTIONS,
   GET_MOVIE_BY_ID_IN_PROGRESS,
   GET_MOVIE_BY_ID_SUCCESS,
   GET_MOVIE_BY_ID_FAILURE,
@@ -12,19 +11,13 @@ import {
   REMOVE_MOVIE_IN_PROGRESS,
   REMOVE_MOVIE_SUCCESS,
   REMOVE_MOVIE_FAILURE,
+  CLEAR_MOVIE_DETAILS,
 } from './actions';
 import { reducersFactory } from './reducer-factory';
 
 const initialState = {
   moviesData: { data: [] },
-  queryOptions: {
-    search: '',
-    sortBy: 'release_date',
-    searchBy: 'title',
-    offset: 0,
-    limit: 12,
-  },
-  curEditingMovie: {},
+  movieDetails: {},
   loading: false,
   errors: [],
 };
@@ -54,14 +47,6 @@ handlers[GET_MOVIES_FAILURE] = (state, action) => {
   };
 };
 
-handlers[CHANGE_QUERY_OPTIONS] = (state, action) => {
-  const { queryOptions } = action.payload;
-  return {
-    ...state,
-    queryOptions: { ...state.queryOptions, ...queryOptions },
-  };
-};
-
 handlers[GET_MOVIE_BY_ID_IN_PROGRESS] = (state) => {
   return {
     ...state,
@@ -73,7 +58,7 @@ handlers[GET_MOVIE_BY_ID_SUCCESS] = (state, action) => {
   return {
     ...state,
     loading: false,
-    curEditingMovie: movie,
+    movieDetails: movie,
   };
 };
 handlers[GET_MOVIE_BY_ID_FAILURE] = (state, action) => {
@@ -140,6 +125,13 @@ handlers[REMOVE_MOVIE_FAILURE] = (state, action) => {
     ...state,
     loading: false,
     errors: [...state.errors, error],
+  };
+};
+
+handlers[CLEAR_MOVIE_DETAILS] = (state) => {
+  return {
+    ...state,
+    movieDetails: undefined,
   };
 };
 

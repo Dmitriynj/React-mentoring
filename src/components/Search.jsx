@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Input } from '@material-ui/core';
 import { debounce } from 'lodash';
+import { useQuery } from '../hooks/useQuery';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,13 +31,15 @@ const useStyles = makeStyles(() => ({
 
 const ON_INPUT_VALIDATION_DELAY = 300;
 
-const Search = ({ onSearch }) => {
+const Search = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const { query } = useQuery();
 
-  const onInputChange = debounce(
-    (event) => onSearch(event.target.value),
-    ON_INPUT_VALIDATION_DELAY
-  );
+  const onInputChange = debounce((event) => {
+    query.set('search', event.target.value);
+    history.push({ pathname: '/movies', search: query.toString() });
+  }, ON_INPUT_VALIDATION_DELAY);
 
   return (
     <div className={classes.root}>
@@ -46,10 +49,6 @@ const Search = ({ onSearch }) => {
       <Input className={classes.searchElement} onChange={onInputChange} />
     </div>
   );
-};
-
-Search.propTypes = {
-  onSearch: PropTypes.func.isRequired,
 };
 
 export { Search };

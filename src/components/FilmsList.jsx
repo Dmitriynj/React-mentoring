@@ -5,8 +5,6 @@ import { reduce, uniqueId, isEmpty } from 'lodash';
 import { FilmCard } from './FilmCard';
 
 const FilmsList = ({ movies }) => {
-  console.log('render', movies);
-
   const getFilmsPortion = (filmPortion) => {
     return filmPortion.map((curMovie) => (
       <Grid item xs={3} key={`film-row-item-${uniqueId()}`}>
@@ -49,6 +47,8 @@ const FilmsList = ({ movies }) => {
     },
     { result: [], temp: [] }
   );
+
+  console.log('render films list', movies);
 
   return <Grid container>{filmElements.result}</Grid>;
 };
