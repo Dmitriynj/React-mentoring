@@ -10,3 +10,7 @@ export const mapLoading = (state) => {
 export const mapMovieDetails = (state) => {
   return state.moviesReducer.movieDetails;
 };
+
+export const mapError = (state) => {
+  return state.moviesReducer.error;
+};

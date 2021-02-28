@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form field should change value 1`] = `
+<label
+  class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-2 MuiInputLabel-animated"
+>
+  Title
+</label>
+`;

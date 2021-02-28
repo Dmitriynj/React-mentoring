@@ -66,7 +66,7 @@ FormField.propTypes = {
   ]).isRequired,
   onChange: PropTypes.func.isRequired,
   touched: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  errorMsg: PropTypes.string,
+  errorMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };
 FormField.defaultProps = {

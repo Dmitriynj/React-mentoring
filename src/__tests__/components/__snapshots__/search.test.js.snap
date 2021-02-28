@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search renders correctly 1`] = `
+<div
+  class="makeStyles-root-1"
+>
+  <h4
+    class="MuiTypography-root makeStyles-title-2 MuiTypography-h4"
+  >
+    FIND YOUR MOVIE
+  </h4>
+  <div
+    class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-searchElement-3"
+  >
+    <input
+      class="MuiInputBase-input MuiInput-input"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;

@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardHeader, Typography, CardContent } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { MovieAction } from '../containers/MovieAction';
-// import { useAppState } from '../hooks/useAppState';
 
 const useStyles = makeStyles({
   card: {

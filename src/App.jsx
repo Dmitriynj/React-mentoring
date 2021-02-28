@@ -6,34 +6,37 @@ import { HeadContent } from './components/HeadContent';
 import { SearchResults } from './containers/SearchResults';
 import { NotFound } from './components/NotFound';
 import { FilterPanel } from './components/FilterPanel';
+import { NotificationsProvider } from './containers/NotificationsProvider';
 import './reset.css';
 import './index.css';
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path={['/movies', '/movie/:id', '/no-movies']}>
-          <Header />
-          <HeadContent />
-          <FilterPanel />
-          <Switch>
-            <Route path="/no-movies">
-              <NoMovies />
-            </Route>
-            <Route path={['/movies', '/movie/:id']}>
-              <SearchResults />
-            </Route>
-          </Switch>
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/movies" />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+    <NotificationsProvider>
+      <Router>
+        <Switch>
+          <Route exact path={['/movies', '/movie/:id', '/no-movies']}>
+            <Header />
+            <HeadContent />
+            <FilterPanel />
+            <Switch>
+              <Route path="/no-movies">
+                <NoMovies />
+              </Route>
+              <Route path={['/movies', '/movie/:id']}>
+                <SearchResults />
+              </Route>
+            </Switch>
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/movies" />
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+    </NotificationsProvider>
   );
 };
 

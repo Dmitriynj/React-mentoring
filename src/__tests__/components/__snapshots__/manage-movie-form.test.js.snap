@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageMovie renders correctly 1`] = `
+<form>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Title
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        id="title"
+        name="title"
+        type="text"
+        value="some title"
+      />
+    </div>
+  </div>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Release date
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        id="release_date"
+        name="release_date"
+        type="date"
+        value="2021-01-07"
+      />
+    </div>
+  </div>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Poster path
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        id="poster_path"
+        name="poster_path"
+        type="text"
+        value="some poster path"
+      />
+    </div>
+  </div>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Genres
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <div
+        aria-haspopup="listbox"
+        aria-labelledby="genres"
+        class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+        id="genres"
+        role="button"
+        tabindex="0"
+      >
+        Comedy, Documentary
+      </div>
+      <input
+        aria-hidden="true"
+        class="MuiSelect-nativeInput"
+        name="genres"
+        tabindex="-1"
+        value="Documentary,Comedy"
+      />
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Runtime
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        id="runtime"
+        name="runtime"
+        type="number"
+        value="123"
+      />
+    </div>
+  </div>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-label-3 MuiInputLabel-animated"
+  >
+    Overview
+  </label>
+  <div
+    class="MuiFormControl-root MuiTextField-root makeStyles-textField-2 MuiFormControl-fullWidth"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        id="overview"
+        name="overview"
+        type="text"
+        value="some text"
+      />
+    </div>
+  </div>
+  <button
+    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-fullWidth"
+    tabindex="0"
+    type="submit"
+  >
+    <span
+      class="MuiButton-label"
+    >
+      Submit
+    </span>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </button>
+</form>
+`;

@@ -1,5 +1,6 @@
 node_modules
 dist
+test-coverage
 
 .yarn-lock
 yarn-debug.log*

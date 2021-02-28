@@ -26,8 +26,9 @@ export const getMovieByIdSuccess = (data) => ({
   payload: { movie: data },
 });
 export const GET_MOVIE_BY_ID_FAILURE = 'GET_MOVIE_BY_ID_FAILURE';
-export const getMovieByIdFailure = () => ({
+export const getMovieByIdFailure = (error) => ({
   type: GET_MOVIE_BY_ID_FAILURE,
+  payload: { error },
 });
 
 export const CLEAR_MOVIE_DETAILS = 'CLEAR_MOVIE_DETAILS';
@@ -80,4 +81,7 @@ export const createMovieFailure = (error) => ({
   payload: { error },
 });
 
-// export
+export const DISMISS_NOTIFICATION = 'DISMISS_NOTIFICATION';
+export const dismissNotification = () => ({
+  type: DISMISS_NOTIFICATION,
+});

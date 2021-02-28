@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MovieDetails } from '../containers/MovieDetails';
 import { Search } from './Search';
 
-const BACKGROUND_IMAGE_URL = 'background.jpg';
-
 const useStyles = makeStyles(() => ({
   mainImage: {
     border: 0,
@@ -19,7 +17,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
-    backgroundImage: `url(${BACKGROUND_IMAGE_URL} )`,
+    backgroundImage: `url('/background.jpg')`,
   },
   shadowed: {
     backgroundImage: `-webkit-gradient(linear,left bottom,left top,color-stop(50%,rgba(0,0,0,0)),to(rgba(0,0,0,.7))),radial-gradient(50% 100%,rgba(0,0,0,0) 50%,rgba(0,0,0,.7) 100%)`,

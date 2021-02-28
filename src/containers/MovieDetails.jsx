@@ -38,7 +38,7 @@ const MovieDetailsStateless = ({ movie, getMovie }) => {
 
   useEffect(() => {
     getMovie(id);
-  }, []);
+  }, [id]);
 
   console.log('id', id);
 
