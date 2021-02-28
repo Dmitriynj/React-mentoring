@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   menu: { backgroundColor: '#232323', color: 'white' },
 }));
 
-const MovieActionStateless = ({ movie, editMovie, deleteMovie }) => {
+const MovieAction = ({ movie, editMovie, deleteMovie }) => {
   const classes = useStyles();
   const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ const MovieActionStateless = ({ movie, editMovie, deleteMovie }) => {
     </>
   );
 };
-MovieActionStateless.propTypes = {
+MovieAction.propTypes = {
   movie: PropTypes.object.isRequired,
   editMovie: PropTypes.func.isRequired,
   deleteMovie: PropTypes.func.isRequired,
@@ -78,6 +78,4 @@ const mapDispatchToProps = (dispatch) => ({
   deleteMovie: (id) => dispatch(removeMovie(id)),
 });
 
-const MovieAction = connect(null, mapDispatchToProps)(MovieActionStateless);
-
-export { MovieAction };
+export default connect(null, mapDispatchToProps)(MovieAction);
