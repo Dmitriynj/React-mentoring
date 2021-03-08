@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoMovies renders correctly 1`] = `
+<div
+  class="makeStyles-template-1"
+>
+  <h4
+    class="MuiTypography-root MuiTypography-h4"
+  >
+    No movies found
+  </h4>
+</div>
+`;
+
+exports[`NoMovies renders correctly 2`] = `
+<h4
+  class="MuiTypography-root MuiTypography-h4"
+>
+  No movies found
+</h4>
+`;

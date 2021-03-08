@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterPanel panel renders correctly 1`] = `
+<div
+  class="makeStyles-managePanel-1"
+  id="manage-panel"
+>
+  <div
+    class="MuiPaper-root makeStyles-root-2 MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiTabs-root"
+    >
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
+      >
+        <div
+          class="MuiTabs-flexContainer MuiTabs-centered"
+          role="tablist"
+        >
+          <button
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
+            role="tab"
+            style="min-width: 40px;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              All
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            style="min-width: 40px;"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Documentary
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            style="min-width: 40px;"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Comedy
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            style="min-width: 40px;"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Horror
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            style="min-width: 40px;"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Crime
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-3 PrivateTabIndicator-colorSecondary-5 MuiTabs-indicator"
+          style="left: 0px; width: 0px;"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="makeStyles-root-12"
+  >
+    <label
+      class="MuiFormLabel-root MuiInputLabel-root makeStyles-inputLabel-9 MuiInputLabel-animated"
+      id="demo-simple-select-label"
+    >
+      SORT BY
+    </label>
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-11"
+    >
+      <div
+        aria-haspopup="listbox"
+        aria-labelledby="demo-simple-select-label demo-simple-select"
+        class="MuiSelect-root makeStyles-select-10 MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+        id="demo-simple-select"
+        role="button"
+        tabindex="0"
+      >
+        <em>
+          RELEASE DATE
+        </em>
+      </div>
+      <input
+        aria-hidden="true"
+        class="MuiSelect-nativeInput"
+        tabindex="-1"
+        value=""
+      />
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+    <span
+      aria-disabled="false"
+      class="MuiButtonBase-root MuiTableSortLabel-root makeStyles-sortDirectionButton-14 MuiTableSortLabel-active"
+      role="button"
+      tabindex="0"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+`;

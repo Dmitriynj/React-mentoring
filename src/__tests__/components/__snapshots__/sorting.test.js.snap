@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sorting renders correctly 1`] = `
+<div
+  class="makeStyles-root-6"
+>
+  <label
+    class="MuiFormLabel-root MuiInputLabel-root makeStyles-inputLabel-3 MuiInputLabel-animated"
+    id="demo-simple-select-label"
+  >
+    SORT BY
+  </label>
+  <div
+    aria-label="select-input"
+    class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-5"
+  >
+    <div
+      aria-haspopup="listbox"
+      aria-labelledby="demo-simple-select-label demo-simple-select"
+      class="MuiSelect-root makeStyles-select-4 MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+      id="demo-simple-select"
+      role="button"
+      tabindex="0"
+    >
+      <em>
+        RELEASE DATE
+      </em>
+    </div>
+    <input
+      aria-hidden="true"
+      class="MuiSelect-nativeInput"
+      tabindex="-1"
+      value=""
+    />
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiSelect-icon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M7 10l5 5 5-5z"
+      />
+    </svg>
+  </div>
+  <span
+    aria-disabled="false"
+    class="MuiButtonBase-root MuiTableSortLabel-root makeStyles-sortDirectionButton-8 MuiTableSortLabel-active"
+    role="button"
+    tabindex="0"
+  >
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+      />
+    </svg>
+  </span>
+</div>
+`;

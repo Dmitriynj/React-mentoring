@@ -87,7 +87,7 @@ const Sorting = () => {
             },
           },
         }}
-        input={<Input classes={{ underline: classes.underline }} />}
+        input={<Input aria-label="select-input" classes={{ underline: classes.underline }} />}
         id="demo-simple-select"
         value={sortBy}
         onChange={handleChange}

@@ -1,12 +1,10 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render } from '../test-utils';
 import { ModalWrapper } from '../../components/shared/ModalWrapper';
 import { ManageMovieForm } from '../../components/shared/ManageMovieForm';
 
 describe('Modal wrapper', () => {
   let onConfirmMock;
-
   let tree;
 
   beforeEach(() => {

@@ -36,8 +36,6 @@ const GenreSelector = () => {
     setValue(newValue);
   };
 
-  console.log('render genre selector comp');
-
   return (
     <Paper className={classes.root}>
       <Tabs value={value} onChange={handleChange} indicatorColor="secondary" centered>

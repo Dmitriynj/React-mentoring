@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenreSelector renders correctly 1`] = `
+<div
+  class="MuiPaper-root makeStyles-root-1 MuiPaper-elevation1 MuiPaper-rounded"
+>
+  <div
+    class="MuiTabs-root"
+  >
+    <div
+      class="MuiTabs-scroller MuiTabs-fixed"
+      style="overflow: hidden;"
+    >
+      <div
+        class="MuiTabs-flexContainer MuiTabs-centered"
+        role="tablist"
+      >
+        <button
+          aria-selected="true"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
+          role="tab"
+          style="min-width: 40px;"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            All
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+          role="tab"
+          style="min-width: 40px;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Documentary
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+          role="tab"
+          style="min-width: 40px;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Comedy
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+          role="tab"
+          style="min-width: 40px;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Horror
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+          role="tab"
+          style="min-width: 40px;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Crime
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <span
+        class="PrivateTabIndicator-root-2 PrivateTabIndicator-colorSecondary-4 MuiTabs-indicator"
+        style="left: 0px; width: 0px;"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound renders correctly 1`] = `
+<div
+  class="makeStyles-mainImage-1"
+>
+  <div
+    class="makeStyles-content-2"
+  >
+    <h2
+      class="MuiTypography-root makeStyles-header-3 MuiTypography-h2"
+    >
+      Lost your way?
+    </h2>
+    <p
+      class="MuiTypography-root makeStyles-message-4 MuiTypography-body1"
+    >
+      Sorry, we can't find that page. You'll find lots to explore on the home page.
+    </p>
+    <button
+      class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-6 MuiButton-text makeStyles-homeButton-5 MuiButton-textSizeLarge MuiButton-sizeLarge"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Netflix Home
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`NotFound renders correctly 2`] = `
+<h2
+  class="MuiTypography-root makeStyles-header-3 MuiTypography-h2"
+>
+  Lost your way?
+</h2>
+`;

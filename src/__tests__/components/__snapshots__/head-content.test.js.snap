@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Head content renders correctly 1`] = `
+<div
+  class="makeStyles-mainImage-1"
+>
+  <div
+    class="makeStyles-shadowed-2"
+    id="header-content"
+  >
+    <div
+      class="makeStyles-root-3"
+    >
+      <h4
+        class="MuiTypography-root makeStyles-title-4 MuiTypography-h4"
+      >
+        FIND YOUR MOVIE
+      </h4>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-searchElement-5"
+      >
+        <input
+          class="MuiInputBase-input MuiInput-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

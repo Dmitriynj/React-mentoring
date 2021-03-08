@@ -1,16 +1,23 @@
 import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { MemoryRouter, Route, __setSpy } from 'react-router-dom';
+import { render, fireEvent } from '../test-utils';
 import { FilmCard } from '../../components/FilmCard';
-import { moviesReducer } from '../../store/reducers';
 
-const store = createStore(moviesReducer, {});
+function renderComponent(movie) {
+  return render(
+    <MemoryRouter initialEntries={['/movies']}>
+      <Route exact path="/movies">
+        <div id="header-content">dummy header</div>
+        <FilmCard movie={movie} />
+      </Route>
+    </MemoryRouter>,
+    { initialState: {} }
+  );
+}
 
-describe('Delete movie', () => {
+describe('Film card', () => {
   const movie = {
+    id: 12,
     title: 'some title',
     release_date: '2021-01-07',
     poster_path: 'some poster path',
@@ -18,30 +25,27 @@ describe('Delete movie', () => {
     runtime: 123,
     overview: 'some text',
   };
+  const mockedPush = jest.fn();
   let tree;
 
-  //   beforeEach(() => {
-  //     tree = render(
-  //       <MemoryRouter initialEntries={['/movies']}>
-  //         <Route exact path="/movies">
-  //           <FilmCard movie={movie} />
-  //         </Route>
-  //       </MemoryRouter>
-  //     );
-  //   });
+  beforeEach(() => {
+    __setSpy('useHistory', () => ({
+      push: mockedPush,
+    }));
+  });
 
   it('renders correctly', () => {
-    tree = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/movies']}>
-          <Route exact path="/movies">
-            <FilmCard movie={movie} />
-          </Route>
-        </MemoryRouter>
-      </Provider>
-    );
-    // expect(tree.container.firstChild).toMatchSnapshot();
+    tree = renderComponent(movie);
     expect(tree.getByText(/release date:/i)).toBeInTheDocument();
-    // expect(tree.getByText(//i)).toBeInTheDocument();
+  });
+
+  it('should call history.push', () => {
+    window.HTMLElement.prototype.scrollIntoView = jest.fn().mockImplementationOnce(() => {});
+
+    const { getByTitle } = renderComponent(movie);
+
+    fireEvent.click(getByTitle('Contemplative Reptile'));
+
+    expect(mockedPush).toHaveBeenCalledWith('/movie/12');
   });
 });

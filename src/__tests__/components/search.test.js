@@ -1,25 +1,9 @@
 /* eslint-disable func-names */
 import React from 'react';
 import _ from 'lodash';
-import { MemoryRouter, Route } from 'react-router-dom';
-import { render, fireEvent, screen, act } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { MemoryRouter, Route, __setSpy } from 'react-router-dom';
+import { render, fireEvent, screen, act } from '../test-utils';
 import { Search } from '../../components/Search';
-
-const mockedPush = jest.fn();
-jest.mock('react-router-dom', () => {
-  const originalModule = jest.requireActual('react-router-dom');
-  const mockedModule = jest.createMockFromModule('react-router-dom');
-
-  // mock useHistory only
-  return {
-    ...mockedModule,
-    ...originalModule,
-    useHistory: () => ({
-      push: mockedPush,
-    }),
-  };
-});
 
 jest.useFakeTimers();
 
@@ -34,7 +18,13 @@ function renderComponent() {
 }
 
 describe('Search', () => {
+  const mockedPush = jest.fn();
+
   beforeEach(() => {
+    __setSpy('useHistory', () => ({
+      push: mockedPush,
+    }));
+
     /**
      * _.debounce spy is needed due to
      * this issue https://github.com/facebook/jest/issues/3465
