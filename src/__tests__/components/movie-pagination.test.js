@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { MemoryRouter, Route, __setSpy } from 'react-router-dom';
 import { render, fireEvent } from '../test-utils';
 import { MoviePagination } from '../../components/MoviePagination';
 
-function renderComponent({ totalAmount, limit, offset }) {
-  return render(
-    <MemoryRouter initialEntries={['/movies']}>
-      <Route exact path="/movies">
-        <div id="manage-panel">dummy manage panel</div>
-        <MoviePagination totalAmount={totalAmount} limit={limit} offset={offset} />
-      </Route>
-    </MemoryRouter>,
-    { initialState: {} }
-  );
+const TestComponent = ({ totalAmount, limit, offset }) => (
+  <MemoryRouter initialEntries={['/movies']}>
+    <Route exact path="/movies">
+      <div id="manage-panel">dummy manage panel</div>
+      <MoviePagination totalAmount={totalAmount} limit={limit} offset={offset} />
+    </Route>
+  </MemoryRouter>
+);
+
+function renderComponent({ ...props }) {
+  return render(<TestComponent {...props} />, { initialState: {} });
 }
 
 describe('Movie pagination', () => {
@@ -24,9 +26,9 @@ describe('Movie pagination', () => {
     }));
   });
 
-  it('should renders correctly', () => {
-    const { container, queryByLabelText } = renderComponent({
-      totalAmount: 100,
+  it('should renders and re-renders correctly', () => {
+    const { container, queryByLabelText, rerender } = renderComponent({
+      totalAmount: 1000,
       limit: 10,
       offset: 0,
     });
@@ -34,8 +36,14 @@ describe('Movie pagination', () => {
     expect(container.firstChild).toMatchSnapshot();
     expect(queryByLabelText('Go to previous page')).not.toBeNull();
     expect(queryByLabelText('page 1')).not.toBeNull();
-    expect(queryByLabelText('Go to page 10')).not.toBeNull();
+    expect(queryByLabelText('Go to page 5')).not.toBeNull();
     expect(queryByLabelText('Go to next page')).not.toBeNull();
+
+    rerender(<TestComponent totalAmount={1000} limit={10} offset={200} />);
+    expect(queryByLabelText('page 21')).not.toBeNull();
+
+    rerender(<TestComponent totalAmount={1000} limit={10} offset={0} />);
+    expect(queryByLabelText('page 1')).not.toBeNull();
   });
 
   it('should not render pagination element if totalAmount less or equal 0', () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +27,10 @@ const MoviePagination = ({ totalAmount, limit, offset }) => {
   const totalPagesAmount = Math.ceil(totalAmount / limit);
   const history = useHistory();
   const { query } = useQuery();
+
+  useEffect(() => {
+    setPage(offset / limit + 1);
+  }, [offset, limit]);
 
   const handleChange = (event, value) => {
     document.querySelector('#manage-panel').scrollIntoView({

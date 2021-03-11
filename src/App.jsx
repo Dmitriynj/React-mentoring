@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
-import { Header } from './containers/Header';
+import Header from './containers/Header';
 import { NoMovies } from './components/NoMovies';
 import { HeadContent } from './components/HeadContent';
 import { SearchResults } from './containers/SearchResults';

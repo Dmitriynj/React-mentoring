@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Movie pagination should renders correctly 1`] = `
+exports[`Movie pagination should renders and re-renders correctly 1`] = `
 <div
   id="manage-panel"
 >

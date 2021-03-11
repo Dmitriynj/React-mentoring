@@ -3,15 +3,16 @@ import { MemoryRouter, Route, __setSpy } from 'react-router-dom';
 import { render, fireEvent } from '../test-utils';
 import { GenreSelector } from '../../components/GenreSelector';
 
+const TestComponent = () => (
+  <MemoryRouter initialEntries={['/movies']}>
+    <Route exact path="/movies">
+      <GenreSelector />
+    </Route>
+  </MemoryRouter>
+);
+
 function renderComponent() {
-  return render(
-    <MemoryRouter initialEntries={['/movies']}>
-      <Route exact path="/movies">
-        <GenreSelector />
-      </Route>
-    </MemoryRouter>,
-    { initialState: {} }
-  );
+  return render(<TestComponent />, { initialState: {} });
 }
 
 describe('GenreSelector', () => {
@@ -35,31 +36,31 @@ describe('GenreSelector', () => {
     fireEvent.click(tabs[0]);
     expect(mockedPush).toBeCalledWith({
       pathname: '/movies',
-      search: 'filter=&searchBy=title',
+      search: 'filter=&searchBy=title&offset=0',
     });
 
     fireEvent.click(tabs[1]);
     expect(mockedPush).toBeCalledWith({
       pathname: '/movies',
-      search: 'filter=Documentary&searchBy=title',
+      search: 'filter=Documentary&searchBy=title&offset=0',
     });
 
     fireEvent.click(tabs[2]);
     expect(mockedPush).toBeCalledWith({
       pathname: '/movies',
-      search: 'filter=Comedy&searchBy=title',
+      search: 'filter=Comedy&searchBy=title&offset=0',
     });
 
     fireEvent.click(tabs[3]);
     expect(mockedPush).toBeCalledWith({
       pathname: '/movies',
-      search: 'filter=Horror&searchBy=title',
+      search: 'filter=Horror&searchBy=title&offset=0',
     });
 
     fireEvent.click(tabs[4]);
     expect(mockedPush).toBeCalledWith({
       pathname: '/movies',
-      search: 'filter=Crime&searchBy=title',
+      search: 'filter=Crime&searchBy=title&offset=0',
     });
   });
 });

@@ -34,8 +34,10 @@ const getError = (error) => {
     // that falls out of the range of 2xx
     console.log(error.response.data);
     console.log(error.response.status);
+
+    const { data } = error.response;
     return {
-      message: error.response.data,
+      message: typeof data === 'string' ? data : data.messages.join(' '),
       status: error.response.status,
       id: `error-${Date.now()}`,
     };

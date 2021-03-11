@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HeaderStateless = ({ loading, addMovie, currentMovie, clearMovie }) => {
+const Header = ({ loading, addMovie, currentMovie, clearMovie }) => {
   const classes = useStyles();
   const history = useHistory();
   const [showSearchIcon, setShowSearchIcon] = useState();
@@ -84,6 +84,7 @@ const HeaderStateless = ({ loading, addMovie, currentMovie, clearMovie }) => {
   });
 
   const switchToInput = () => {
+    console.log('switch');
     setShowSearchIcon(false);
     history.push('/movies');
     clearMovie();
@@ -124,13 +125,13 @@ const HeaderStateless = ({ loading, addMovie, currentMovie, clearMovie }) => {
     </AppBar>
   );
 };
-HeaderStateless.propTypes = {
+Header.propTypes = {
   currentMovie: PropTypes.object,
   addMovie: PropTypes.func.isRequired,
   clearMovie: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
-HeaderStateless.defaultProps = {
+Header.defaultProps = {
   currentMovie: {},
 };
 
@@ -144,6 +145,5 @@ const mapDispatchToProps = (dispatch) => ({
   clearMovie: () => dispatch(clearMovieDetails()),
 });
 
-const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderStateless);
-
 export { Header };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

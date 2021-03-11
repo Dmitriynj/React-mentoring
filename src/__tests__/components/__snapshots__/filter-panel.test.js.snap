@@ -122,6 +122,7 @@ exports[`FilterPanel panel renders correctly 1`] = `
       SORT BY
     </label>
     <div
+      aria-label="select-input"
       class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-11"
     >
       <div

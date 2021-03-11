@@ -31,6 +31,7 @@ const GenreSelector = () => {
   const handleChange = (event, newValue) => {
     query.set('filter', genres[newValue]);
     query.set('searchBy', 'title');
+    query.set('offset', 0);
 
     history.push({ pathname: '/movies', search: query.toString() });
     setValue(newValue);

@@ -50,10 +50,15 @@ const getMovieById = (id) => (dispatch) => {
 };
 
 const updateMovie = (movie) => (dispatch) => {
+  // tagline is just needed for some reason
   axiosInstance
-    .put('movies', movie, {
-      headers: { 'content-type': 'application/json' },
-    })
+    .put(
+      'movies',
+      { ...movie, tagline: 'some' },
+      {
+        headers: { 'content-type': 'application/json' },
+      }
+    )
     .then((res) => dispatch(updateMovieSuccess(res.data)))
     .catch((error) => dispatch(updateMovieFailure(error)));
   dispatch(updateMovieInProgress());
