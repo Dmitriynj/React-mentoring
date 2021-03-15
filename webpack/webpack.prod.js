@@ -1,15 +1,28 @@
+const path = require('path');
 const webpack = require('webpack');
-const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const common = require('./webpack.common.js');
-const { rules } = require('./common-rules');
-const { plugins } = require('./common-plugins');
+const { rules } = require('./common/rules');
+const { plugins } = require('./common/plugins');
 
-module.exports = merge(common, {
+module.exports = {
   mode: 'production',
   devtool: 'source-map',
+  entry: {
+    app: './src/index.js', // Bundle with our code
+    vendor: ['react', 'react-dom'], // Vendor libraries we want make in separate bundles
+  },
+  output: {
+    filename: '[name].[fullhash].js', // [name] - name of the entry (bundle),
+    // [checksum] or [hash] - to cache different bundles
+    // from update when developing (doing changes in the files)
+    path: path.resolve(__dirname, '../dist'),
+    // where you uploaded your bundled files. (Relative to server root)
+    // needs for react-router-dom
+    publicPath: '/',
+  },
+  resolve: { extensions: ['*', '.js', '.jsx'] },
   optimization: {
     splitChunks: {
       // To split up js code to different bundles.
@@ -37,4 +50,4 @@ module.exports = merge(common, {
       },
     ],
   },
-});
+};

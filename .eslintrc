@@ -41,6 +41,7 @@
     "react/jsx-wrap-multilines": "off",
     "camelcase": "off",
     "react/jsx-one-expression-per-line": "off",
-    "no-use-before-define": "error"
+    "no-use-before-define": "error",
+    "global-require": "off"
   }
 }

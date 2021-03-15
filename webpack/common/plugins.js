@@ -9,7 +9,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../public/index.html'),
+      template: path.join(__dirname, '../../public/index.html'),
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: '',
@@ -17,12 +17,12 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.join(__dirname, '../src/assets'),
-          to: path.join(__dirname, 'dist'),
+          from: path.join(__dirname, '../../src/assets'),
+          to: path.join(__dirname, '../../dist'),
         },
         {
-          from: path.join(__dirname, '../public'),
-          to: path.join(__dirname, 'dist'),
+          from: path.join(__dirname, '../../public'),
+          to: path.join(__dirname, '../../dist'),
           globOptions: {
             dot: true,
             ignore: ['**/index.html'],

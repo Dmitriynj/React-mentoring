@@ -77,8 +77,12 @@ const createMovie = (movie) => (dispatch) => {
     .post('movies', movie, {
       headers: { 'content-type': 'application/json' },
     })
-    .then(() => dispatch(createMovieSuccess()))
-    .catch((error) => dispatch(createMovieFailure(error)));
+    .then(() => {
+      dispatch(createMovieSuccess());
+    })
+    .catch((error) => {
+      dispatch(createMovieFailure(error));
+    });
   dispatch(createMovieInProgress());
 };
 
