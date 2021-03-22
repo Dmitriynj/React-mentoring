@@ -52,7 +52,6 @@ const App = () => {
               <NotFound />
             </Route>
           </Switch>
-          {/* </Router> */}
         </NotificationsProvider>
       </ErrorBoundary>
     </StylesProvider>
