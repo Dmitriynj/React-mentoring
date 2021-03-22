@@ -9,5 +9,6 @@ const reducers = {
 
 const rootReducer = combineReducers(reducers);
 
-export const configureStore = () =>
-  createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const configureStore = (preloadedState) => {
+  return createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(thunk)));
+};

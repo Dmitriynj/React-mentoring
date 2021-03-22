@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { getMovieById } from '../store/thunks';
 import { mapMovieDetails } from '../store/selectors';
 
 const useStyles = makeStyles(() => ({
@@ -32,13 +31,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MovieDetailsStateless = ({ movie, getMovie }) => {
+const MovieDetailsStateless = ({ movie }) => {
   const classes = useStyles();
   const { id } = useParams();
-
-  useEffect(() => {
-    getMovie(id);
-  }, [id]);
 
   console.log('id', id);
 
@@ -69,7 +64,6 @@ const MovieDetailsStateless = ({ movie, getMovie }) => {
 
 MovieDetailsStateless.propTypes = {
   movie: PropTypes.object,
-  getMovie: PropTypes.func.isRequired,
 };
 MovieDetailsStateless.defaultProps = {
   movie: {},
@@ -79,10 +73,6 @@ const mapStateToProps = (state) => ({
   movie: mapMovieDetails(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getMovie: (id) => dispatch(getMovieById(id)),
-});
-
-const MovieDetails = connect(mapStateToProps, mapDispatchToProps)(MovieDetailsStateless);
+const MovieDetails = connect(mapStateToProps, null)(MovieDetailsStateless);
 
 export { MovieDetails };

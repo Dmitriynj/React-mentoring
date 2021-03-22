@@ -21,32 +21,28 @@ const axiosInstance = axios.create({
   baseURL: process.env.SERVICE_URL,
 });
 
-const fetchMovies = ({
-  search,
-  filter = [],
-  limit = 12,
-  offset = 0,
-  sortBy = 'release_date',
-  sortOrder = 'asc',
-  searchBy = 'title',
-}) => (dispatch) => {
-  axiosInstance
-    .get(
-      `movies?limit=${limit}${search ? `&search=${search}` : ''}&filter=${filter.join(
-        ','
-      )}&offset=${offset}&sortBy=${sortBy}&sortOrder=${sortOrder}&searchBy=${searchBy}`
-    )
-    .then((res) => dispatch(getMoviesSuccess(res.data)))
-    .catch((error) => dispatch(getMoviesFailure(error)));
+const fetchMovies = (url) => (dispatch) => {
   dispatch(getMoviesInProgress());
+
+  // return needs for SSR
+  return axiosInstance
+    .get(url)
+    .then((res) => {
+      dispatch(getMoviesSuccess(res.data));
+    })
+    .catch((error) => {
+      dispatch(getMoviesFailure(error));
+    });
 };
 
 const getMovieById = (id) => (dispatch) => {
-  axiosInstance
+  // return needs for SSR
+  dispatch(getMovieByIdInProgress());
+
+  return axiosInstance
     .get(`movies/${id}`)
     .then((res) => dispatch(getMovieByIdSuccess(res.data)))
     .catch((error) => dispatch(getMovieByIdFailure(error)));
-  dispatch(getMovieByIdInProgress());
 };
 
 const updateMovie = (movie) => (dispatch) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, MenuItem, Menu } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -19,8 +19,6 @@ const MovieAction = ({ movie, editMovie, deleteMovie }) => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState();
-
-  useEffect(() => {}, []);
 
   const switchIsOpen = () => {
     setIsOpen((prev) => !prev);

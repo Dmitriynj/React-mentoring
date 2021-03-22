@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter, Route, __setSpy } from 'react-router-dom';
 import { render, fireEvent } from '../test-utils';
-import { FilmCard } from '../../components/FilmCard';
+import { FilmCard } from '../../containers/FilmCard';
 
 function renderComponent(movie) {
   return render(

@@ -1,37 +1,35 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 
 const app = express();
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+app.use(express.static('dist'));
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const config = require('../webpack/webpack.dev');
-  const compiler = webpack(config('webpack-dev-middleware'));
+  const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler));
   app.use(webpackHotMiddleware(compiler));
 } else {
-  const fs = require('fs');
-  const path = require('path');
   const serverRenderer = require('../build/serverRenderer');
 
   let indexHTML;
   try {
     const indexHTMLPath = path.resolve(__dirname, '../dist/index.html');
-    // // read `index.html` file
-    // indexHTML = fs.readFileSync(indexHTMLPath, {
-    //   encoding: 'utf8',
-    // });
-    // file removed
-    fs.unlinkSync(indexHTMLPath);
+    indexHTML = fs.readFileSync(indexHTMLPath, {
+      encoding: 'utf8',
+    });
   } catch (e) {
-    console.error('ERROR: index.html.', e);
+    console.log(e);
   }
+  console.log('SERVICE_URL', process.env.SERVICE_URL);
 
-  app.use(express.static('dist'));
   app.use(serverRenderer(indexHTML));
 }
 

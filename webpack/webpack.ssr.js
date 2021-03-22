@@ -7,6 +7,7 @@ module.exports = {
   // Inform webpack that we're building a bundle
   // for nodeJS, rather than for the browser
   target: 'node',
+  watch: true,
 
   // Tell webpack the root file of our
   // server application
@@ -20,6 +21,7 @@ module.exports = {
     libraryTarget: 'commonjs2',
     libraryExport: 'default',
   },
+
   devtool: 'source-map',
   externals: [webpackNodeExternals()],
   module: {

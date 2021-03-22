@@ -42,6 +42,7 @@
     "camelcase": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-use-before-define": "error",
-    "global-require": "off"
+    "global-require": "off",
+    "no-underscore-dangle": "off"
   }
 }

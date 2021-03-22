@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { reduce, uniqueId, isEmpty } from 'lodash';
-import { FilmCard } from './FilmCard';
+import { FilmCard } from '../containers/FilmCard';
 
 const FilmsList = ({ movies }) => {
   const getFilmsPortion = (filmPortion) => {
@@ -47,8 +47,6 @@ const FilmsList = ({ movies }) => {
     },
     { result: [], temp: [] }
   );
-
-  console.log('render films list', movies);
 
   return <Grid container>{filmElements.result}</Grid>;
 };

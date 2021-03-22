@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardHeader, Typography, CardContent } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import MovieAction from '../containers/MovieAction';
+import { getMovieById } from '../store/thunks';
+import MovieAction from './MovieAction';
 
 const useStyles = makeStyles({
   card: {
@@ -58,7 +60,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FilmCard = ({ movie }) => {
+const FilmCardStateless = ({ movie, getMovie }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -66,6 +68,7 @@ const FilmCard = ({ movie }) => {
     document.querySelector('#header-content').scrollIntoView({
       behavior: 'smooth',
     });
+    getMovie(movie.id);
     history.push(`/movie/${movie.id}`);
   };
 
@@ -107,8 +110,15 @@ const FilmCard = ({ movie }) => {
   );
 };
 
-FilmCard.propTypes = {
+FilmCardStateless.propTypes = {
   movie: PropTypes.object.isRequired,
+  getMovie: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  getMovie: (id) => dispatch(getMovieById(id)),
+});
+
+const FilmCard = connect(null, mapDispatchToProps)(FilmCardStateless);
 
 export { FilmCard };

@@ -30,6 +30,9 @@ module.exports = {
         },
       ],
     }),
+    new webpack.DefinePlugin({
+      'process.env.SERVICE_URL': JSON.stringify('http://localhost:4000'),
+    }),
     new webpack.ProgressPlugin(),
   ],
 };

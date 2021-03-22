@@ -16,9 +16,13 @@ const SearchResultsStateless = ({ moviesData, sendGetMovies }) => {
   const { data: movies, totalAmount, limit, offset } = moviesData;
   const isEmptyRes = !isFirstRender.current && isEmpty(movies);
 
+  console.log('options', getQueryOptions());
+
   useEffect(() => {
-    if (search) {
-      sendGetMovies(getQueryOptions());
+    // for the first render we already have a rendered list of movies
+    // due to SSR
+    if (!isFirstRender.current && search) {
+      sendGetMovies(`/movies${search}`);
     }
   }, [search]);
 
