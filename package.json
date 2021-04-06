@@ -8,8 +8,10 @@
     "build": "yarn build:prod && build:ssr",
     "build:prod": "./node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
     "build:ssr": "./node_modules/.bin/webpack --config ./webpack/webpack.ssr.js",
+    "storybook": "start-storybook -p 6006",
     "test": "./node_modules/.bin/jest --updateSnapshot",
-    "lint": "./node_modules/.bin/eslint"
+    "lint": "./node_modules/.bin/eslint",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/register": "^7.13.8",
@@ -45,6 +47,7 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "sb": "^6.1.21",
     "source-map-loader": "^2.0.1",
     "webpack": "5.8.0",
     "webpack-cli": "^4.5.0",
@@ -63,9 +66,12 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/runtime": "^7.12.5",
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/react": "^6.1.21",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",

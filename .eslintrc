@@ -3,7 +3,6 @@
     "browser": true,
     "es2020": true
   },
-  // "parser": "babel-eslint",
   "extends": ["plugin:react/recommended", "airbnb", "prettier", "plugin:jest/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
