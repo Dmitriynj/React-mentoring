@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
 const FilterPanel = () => {
   const classes = useStyles();
 
+  
   return (
     <div className={classes.managePanel} id="manage-panel">
       <GenreSelector />
